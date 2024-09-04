@@ -1,4 +1,5 @@
-﻿using BookMyHome.Domain.DomainServices;
+﻿using System.ComponentModel.DataAnnotations;
+using BookMyHome.Domain.DomainServices;
 
 namespace BookMyHome.Domain.Entity
 {
@@ -7,6 +8,8 @@ namespace BookMyHome.Domain.Entity
         public int Id { get; protected set; }
         public DateOnly StartDate { get; protected set; }
         public DateOnly EndDate { get; protected set; }
+        [Timestamp]
+        public byte[] RowVersion { get; protected set; }
 
         protected Booking() { }
 
