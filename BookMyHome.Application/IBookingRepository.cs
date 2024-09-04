@@ -11,5 +11,6 @@ namespace BookMyHome.Application
     {
         public void AddBooking(Booking booking);
         public Booking GetBooking(int id);
+        public void UpdateBooking(Booking booking);
     }
 }
