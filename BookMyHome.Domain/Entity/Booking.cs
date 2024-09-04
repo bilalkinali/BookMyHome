@@ -1,12 +1,21 @@
-﻿using BookMyHome.Domain.DomainServices;
+﻿using System.ComponentModel.DataAnnotations;
+using BookMyHome.Domain.DomainServices;
 
 namespace BookMyHome.Domain.Entity
 {
-    public class Booking
+    public abstract class DomainEntity
     {
-        public int Id { get; set; }
+        public int Id { get; protected set; }
+        [Timestamp]
+        public byte[] RowVersion { get; protected set; }
+    }
+
+    public class Booking : DomainEntity
+    {
+        
         public DateOnly StartDate { get; protected set; }
         public DateOnly EndDate { get; protected set; }
+        
 
         protected Booking() { }
 
@@ -54,6 +63,17 @@ namespace BookMyHome.Domain.Entity
         public static Booking Create(DateOnly startDate, DateOnly endDate, IBookingDomainService bookingDomainService)
         {
             return new Booking(startDate, endDate, bookingDomainService);
+        }
+
+        public void Update(DateOnly startDate, DateOnly endDate, IBookingDomainService domainService)
+        {
+            StartDate = startDate;
+            EndDate = endDate;
+
+            // Mulige andre tjeks ved update
+            StartDateBeforeEndDate();
+            StartDateInFuture(DateOnly.FromDateTime(DateTime.Now));
+            IsOverlapping(domainService.GetOtherBookings(this));
         }
     }
 }

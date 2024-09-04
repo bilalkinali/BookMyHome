@@ -1,5 +1,9 @@
 using BookMyHome.Application;
+using BookMyHome.Application.Command;
+using BookMyHome.Application.Query;
+using BookMyHome.Domain.DomainServices;
 using BookMyHome.Infrastructure;
+using BookMyHome.Infrastructure.Queries;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,6 +26,9 @@ builder.Services.AddDbContext<BookMyHomeContext>(options =>
             x.MigrationsAssembly("BookMyHome.DatabaseMigration")));
 
 builder.Services.AddScoped<IBookingRepository, BookingRepository>();
+builder.Services.AddScoped<IBookingCommand, BookingCommand>();
+builder.Services.AddScoped<IBookingQuery, BookingQuery>();
+builder.Services.AddScoped<IBookingDomainService, BookingDomainService>();
 
 var app = builder.Build();
 
