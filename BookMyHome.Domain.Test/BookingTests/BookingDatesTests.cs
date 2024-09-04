@@ -6,6 +6,8 @@ namespace BookMyHome.Domain.Test.BookingTests
     {
         [Theory]
         [InlineData("2024-08-01", "2024-08-03")]
+        [InlineData("2024-08-01", "2024-08-20")]
+        [InlineData("2024-08-01", "2025-04-03")]
         public void Given_Startdate_is_future__Then_Return_Void(string now, string startDate)
         {
             // Arrange
@@ -30,6 +32,8 @@ namespace BookMyHome.Domain.Test.BookingTests
 
         [Theory]
         [InlineData("2024-08-01", "2024-08-02")]
+        [InlineData("2024-08-01", "2024-08-20")]
+        [InlineData("2024-08-01", "2025-04-03")]
         public void Given_Startdate_before_EndDate__Then_Void(string startDate, string endDate)
         {
             // Arrange
