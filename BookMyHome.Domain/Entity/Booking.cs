@@ -61,6 +61,7 @@ namespace BookMyHome.Domain.Entity
             StartDate = startDate;
             EndDate = endDate;
 
+            // Mulige andre tjeks ved update
             StartDateBeforeEndDate();
             StartDateInFuture(DateOnly.FromDateTime(DateTime.Now));
             IsOverlapping(domainService.GetOtherBookings(this));
