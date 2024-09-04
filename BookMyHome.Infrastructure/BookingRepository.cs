@@ -23,8 +23,9 @@ namespace BookMyHome.Infrastructure
             return _db.Bookings.Single(b => b.Id == id);
         }
 
-        void IBookingRepository.UpdateBooking(Booking booking)
+        void IBookingRepository.UpdateBooking(Booking booking, byte[] rowversion)
         {
+            _db.Entry(booking).Property(nameof(booking.RowVersion)).OriginalValue = rowversion;
             _db.SaveChanges();
         }
     }
