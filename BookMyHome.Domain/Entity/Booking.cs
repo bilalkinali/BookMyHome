@@ -3,13 +3,19 @@ using BookMyHome.Domain.DomainServices;
 
 namespace BookMyHome.Domain.Entity
 {
-    public class Booking
+    public abstract class DomainEntity
     {
         public int Id { get; protected set; }
-        public DateOnly StartDate { get; protected set; }
-        public DateOnly EndDate { get; protected set; }
         [Timestamp]
         public byte[] RowVersion { get; protected set; }
+    }
+
+    public class Booking : DomainEntity
+    {
+        
+        public DateOnly StartDate { get; protected set; }
+        public DateOnly EndDate { get; protected set; }
+        
 
         protected Booking() { }
 
