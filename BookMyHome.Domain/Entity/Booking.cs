@@ -1,22 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
-using BookMyHome.Domain.DomainServices;
+﻿using BookMyHome.Domain.DomainServices;
 
 namespace BookMyHome.Domain.Entity
 {
-    public abstract class DomainEntity
-    {
-        public int Id { get; protected set; }
-        [Timestamp]
-        public byte[] RowVersion { get; protected set; }
-    }
-
     public class Booking : DomainEntity
     {
-        
         public DateOnly StartDate { get; protected set; }
         public DateOnly EndDate { get; protected set; }
         
-
         protected Booking() { }
 
         private Booking(DateOnly startDate, DateOnly endDate, IBookingDomainService bookingDomainService)

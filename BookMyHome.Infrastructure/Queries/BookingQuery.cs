@@ -30,7 +30,8 @@ namespace BookMyHome.Infrastructure.Queries
             {
                 Id = b.Id,
                 StartDate = b.StartDate,
-                EndDate = b.EndDate
+                EndDate = b.EndDate,
+                RowVersion = b.RowVersion
             });
             return result;
         }
