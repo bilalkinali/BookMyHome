@@ -2,10 +2,7 @@ using BookMyHome.Application;
 using BookMyHome.Application.Command;
 using BookMyHome.Application.Command.CommandDto;
 using BookMyHome.Application.Query;
-using BookMyHome.Domain.DomainServices;
 using BookMyHome.Infrastructure;
-using BookMyHome.Infrastructure.Queries;
-using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
