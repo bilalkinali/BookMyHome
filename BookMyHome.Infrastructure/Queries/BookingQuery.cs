@@ -1,5 +1,4 @@
 ﻿using BookMyHome.Application.Query;
-using BookMyHome.Domain.Entity;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookMyHome.Infrastructure.Queries

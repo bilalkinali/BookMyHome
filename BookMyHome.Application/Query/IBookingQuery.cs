@@ -1,6 +1,4 @@
-﻿using BookMyHome.Domain.Entity;
-
-namespace BookMyHome.Application.Query
+﻿namespace BookMyHome.Application.Query
 {
     public interface IBookingQuery
     {
