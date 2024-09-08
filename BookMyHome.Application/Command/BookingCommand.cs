@@ -18,7 +18,6 @@ namespace BookMyHome.Application.Command
         {
             // Do
             var booking = Booking.Create(createBookingDto.StartDate, createBookingDto.EndDate, _domainService);
-
             // Save
             _repository.AddBooking(booking);
         }
@@ -26,21 +25,17 @@ namespace BookMyHome.Application.Command
         {
             // Load
             var booking = _repository.GetBooking(updateBookingDto.Id);
-
             // Do
             booking.Update(updateBookingDto.StartDate, updateBookingDto.EndDate, _domainService);
-
             // Save
             _repository.UpdateBooking(booking, updateBookingDto.RowVersion);
         }
 
         void IBookingCommand.DeleteBooking(DeleteBookingDto deleteBookingDto)
         {
-            // Load
-            
+            // Load            
 
             // Do
-
 
             // Save
         }

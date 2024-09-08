@@ -5,6 +5,7 @@ using BookMyHome.Infrastructure.Queries;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
+using BookMyHome.Application.Helpers;
 
 namespace BookMyHome.Infrastructure
 {
@@ -15,6 +16,7 @@ namespace BookMyHome.Infrastructure
             services.AddScoped<IBookingQuery, BookingQuery>();
             services.AddScoped<IBookingDomainService, BookingDomainService>();
             services.AddScoped<IBookingRepository, BookingRepository>();
+            //services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             // Database
             // https://github.com/dotnet/SqlClient/issues/2239
