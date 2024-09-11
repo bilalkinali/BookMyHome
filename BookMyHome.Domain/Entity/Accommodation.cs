@@ -1,6 +1,4 @@
-﻿using System.Net.NetworkInformation;
-
-namespace BookMyHome.Domain.Entity
+﻿namespace BookMyHome.Domain.Entity
 {
     public class Accommodation : DomainEntity
     {

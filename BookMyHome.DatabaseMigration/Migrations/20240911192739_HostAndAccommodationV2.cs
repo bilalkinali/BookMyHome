@@ -5,7 +5,7 @@
 namespace BookMyHome.DatabaseMigration.Migrations
 {
     /// <inheritdoc />
-    public partial class FixHostAndAccommodations : Migration
+    public partial class HostAndAccommodationV2 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)

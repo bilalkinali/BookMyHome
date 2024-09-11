@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookMyHome.DatabaseMigration.Migrations
 {
     [DbContext(typeof(BookMyHomeContext))]
-    [Migration("20240911183140_FixHostAndAccommodations")]
-    partial class FixHostAndAccommodations
+    [Migration("20240911192739_HostAndAccommodationV2")]
+    partial class HostAndAccommodationV2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

@@ -29,6 +29,7 @@ namespace BookMyHome.DatabaseMigration.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Price = table.Column<double>(type: "float", nullable: false),
                     HostId = table.Column<int>(type: "int", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
