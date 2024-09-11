@@ -12,7 +12,8 @@ namespace BookMyHome.Infrastructure.Repositories
         }
         void IHostRepository.AddHost(Host host)
         {
-            throw new NotImplementedException();
+            _db.Hosts.Add(host);
+            _db.SaveChanges();
         }
 
         Host IHostRepository.GetHost(int id)

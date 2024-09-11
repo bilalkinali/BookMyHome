@@ -24,7 +24,14 @@ namespace BookMyHome.Infrastructure.Queries
 
         IEnumerable<AccommodationDto> IAccommodationQuery.GetAccommodations()
         {
-            throw new NotImplementedException();
+            var result = _db.Accommodations.AsNoTracking()
+                .Select(a => new AccommodationDto
+                {
+                    Id = a.Id,
+                    Price = a.Price,
+                    RowVersion = a.RowVersion
+                });
+            return result;
         }
     }
 }

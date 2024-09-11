@@ -1,5 +1,7 @@
 using BookMyHome.Application;
+using BookMyHome.Application.Command.CommandDto.Accommodation;
 using BookMyHome.Application.Command.CommandDto.Booking;
+using BookMyHome.Application.Command.CommandDto.Host;
 using BookMyHome.Application.Command.Interfaces;
 using BookMyHome.Application.Query;
 using BookMyHome.Infrastructure;
@@ -30,10 +32,21 @@ app.UseHttpsRedirection();
 // https://learn.microsoft.com/en-us/aspnet/core/tutorials/min-web-api?view=aspnetcore-8.0&tabs=visual-studio
 app.MapGet("/hello", () => "Hello World");
 
+// Booking
 app.MapGet("/booking", (IBookingQuery query) => query.GetBookings());
 app.MapGet("/booking/{id}", (int id, IBookingQuery query) => query.GetBooking(id));
 app.MapPost("/booking", (CreateBookingDto booking, IBookingCommand command) => command.CreateBooking(booking));
 app.MapPut("/booking", (UpdateBookingDto booking, IBookingCommand command) => command.UpdateBooking(booking));
 app.MapDelete("/booking", ([FromBody] DeleteBookingDto booking, IBookingCommand command) => command.DeleteBooking(booking));
+
+// Accommodation
+app.MapGet("/accommodation", (IAccommodationQuery query) => query.GetAccommodations());
+app.MapGet("/accommodation/{id}", (int id, IAccommodationQuery query) => query.GetAccommodation(id));
+app.MapPost("/accommdation", (CreateAccommodationDto accommodation, IAccommodationCommand command) => command.CreateAccommodation(accommodation));
+
+// Host
+app.MapGet("/host", (IHostQuery query) => query.GetHosts());
+app.MapGet("/host/{id}", (int id, IHostQuery query) => query.GetHost(id));
+app.MapPost("/host", (CreateHostDto host, IHostCommand command) => command.CreateHost(host));
 
 app.Run();

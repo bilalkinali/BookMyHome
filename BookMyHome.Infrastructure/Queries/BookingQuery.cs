@@ -24,14 +24,14 @@ namespace BookMyHome.Infrastructure.Queries
 
         IEnumerable<BookingDto> IBookingQuery.GetBookings()
         {
-            var result = _db.Bookings.AsNoTracking().
-                Select(b => new BookingDto
-            {
-                Id = b.Id,
-                StartDate = b.StartDate,
-                EndDate = b.EndDate,
-                RowVersion = b.RowVersion
-            });
+            var result = _db.Bookings.AsNoTracking()
+                .Select(b => new BookingDto
+                {
+                    Id = b.Id,
+                    StartDate = b.StartDate,
+                    EndDate = b.EndDate,
+                    RowVersion = b.RowVersion
+                });
             return result;
         }
     }

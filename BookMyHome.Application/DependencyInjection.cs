@@ -10,7 +10,7 @@ namespace BookMyHome.Application
         {
             services.AddScoped<IBookingCommand, BookingCommand>();
             services.AddScoped<IAccommodationCommand, AccommodationCommand>();
-            // services.AddScoped<IHostCommand, HostCommand>();
+            services.AddScoped<IHostCommand, HostCommand>();
             return services;
         }
     }
