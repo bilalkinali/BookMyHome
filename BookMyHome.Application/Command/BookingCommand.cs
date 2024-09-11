@@ -1,6 +1,8 @@
 ﻿using BookMyHome.Application.Command.CommandDto;
+using BookMyHome.Application.Helpers;
 using BookMyHome.Domain.DomainServices;
 using BookMyHome.Domain.Entity;
+using System.Data;
 
 namespace BookMyHome.Application.Command
 {
@@ -8,36 +10,75 @@ namespace BookMyHome.Application.Command
     {
         private readonly IBookingRepository _repository;
         private readonly IBookingDomainService _domainService;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public BookingCommand(IBookingRepository repository, IBookingDomainService domainService)
+        public BookingCommand(IBookingRepository repository, IBookingDomainService domainService, IUnitOfWork unitOfWork)
         {
             _repository = repository;
             _domainService = domainService;
+            _unitOfWork = unitOfWork;
         }
         void IBookingCommand.CreateBooking(CreateBookingDto createBookingDto)
         {
-            // Do
-            var booking = Booking.Create(createBookingDto.StartDate, createBookingDto.EndDate, _domainService);
-            // Save
-            _repository.AddBooking(booking);
+            try
+            {
+                _unitOfWork.BeginTransaction();
+
+                // Do
+                var booking = Booking.Create(createBookingDto.StartDate, createBookingDto.EndDate, _domainService);
+                // Save
+                _repository.AddBooking(booking);
+
+                _unitOfWork.Commit();
+            }
+            catch (Exception)
+            {
+                _unitOfWork.Rollback();
+                throw;
+            }
         }
         void IBookingCommand.UpdateBooking(UpdateBookingDto updateBookingDto)
         {
-            // Load
-            var booking = _repository.GetBooking(updateBookingDto.Id);
-            // Do
-            booking.Update(updateBookingDto.StartDate, updateBookingDto.EndDate, _domainService);
-            // Save
-            _repository.UpdateBooking(booking, updateBookingDto.RowVersion);
+            try
+            {
+                _unitOfWork.BeginTransaction();
+
+                // Load
+                var booking = _repository.GetBooking(updateBookingDto.Id);
+                // Do
+                booking.Update(updateBookingDto.StartDate, updateBookingDto.EndDate, _domainService);
+                // Save
+                _repository.UpdateBooking(booking, updateBookingDto.RowVersion);
+
+                _unitOfWork.Commit();
+            }
+            catch (Exception)
+            {
+                _unitOfWork.Rollback();
+                throw;
+            }
         }
 
         void IBookingCommand.DeleteBooking(DeleteBookingDto deleteBookingDto)
         {
-            // Load            
+            try
+            {
+                _unitOfWork.BeginTransaction();
 
-            // Do
+                // Load            
+                var booking = _repository.GetBooking(deleteBookingDto.Id);
+                // Do
 
-            // Save
+                // Save
+                _repository.DeleteBooking(booking, deleteBookingDto.RowVersion);
+
+                _unitOfWork.Commit();
+            }
+            catch (Exception)
+            {
+                _unitOfWork.Rollback();
+                throw;
+            }
         }
     }
 }

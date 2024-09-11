@@ -3,6 +3,7 @@ using BookMyHome.Application.Command;
 using BookMyHome.Application.Command.CommandDto;
 using BookMyHome.Application.Query;
 using BookMyHome.Infrastructure;
+using Microsoft.AspNetCore.Mvc;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -33,5 +34,6 @@ app.MapGet("/booking", (IBookingQuery query) => query.GetBookings());
 app.MapGet("/booking/{id}", (int id, IBookingQuery query) => query.GetBooking(id));
 app.MapPost("/booking", (CreateBookingDto booking, IBookingCommand command) => command.CreateBooking(booking));
 app.MapPut("/booking", (UpdateBookingDto booking, IBookingCommand command) => command.UpdateBooking(booking));
+app.MapDelete("/booking", ([FromBody] DeleteBookingDto booking, IBookingCommand command) => command.DeleteBooking(booking));
 
 app.Run();
