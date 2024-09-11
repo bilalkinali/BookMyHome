@@ -2,7 +2,7 @@
 {
     public class Host : DomainEntity
     {
-        public IEnumerable<Accommodation>? Accommodations { get; protected set; }
+        public List<Accommodation>? Accommodations { get; protected set; }
 
         protected Host() {}
 

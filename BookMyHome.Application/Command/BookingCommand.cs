@@ -4,7 +4,6 @@ using BookMyHome.Application.Helpers;
 using BookMyHome.Application.RepositoryInterface;
 using BookMyHome.Domain.DomainServices;
 using BookMyHome.Domain.Entity;
-using System.Data;
 
 namespace BookMyHome.Application.Command
 {

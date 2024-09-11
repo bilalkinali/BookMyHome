@@ -9,6 +9,8 @@ namespace BookMyHome.Application
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
             services.AddScoped<IBookingCommand, BookingCommand>();
+            services.AddScoped<IAccommodationCommand, AccommodationCommand>();
+            // services.AddScoped<IHostCommand, HostCommand>();
             return services;
         }
     }

@@ -3,27 +3,29 @@ using BookMyHome.Application.Command.Interfaces;
 using BookMyHome.Application.Helpers;
 using BookMyHome.Application.RepositoryInterface;
 using BookMyHome.Domain.DomainServices;
+using BookMyHome.Domain.Entity;
 
 namespace BookMyHome.Application.Command
 {
     public class AccommodationCommand : IAccommodationCommand
     {
         // Fix
-        private readonly IBookingRepository _bookingRepository;
         private readonly IAccommodationRepository _accommodationRepository;
-        private readonly IBookingDomainService _domainService;
-        private readonly IUnitOfWork _unitOfWork;
+        private readonly IHostRepository _hostRepository;
 
-        public AccommodationCommand(IBookingRepository bookingRepository, IAccommodationRepository accommodationRepository, IBookingDomainService domainService, IUnitOfWork unitOfWork)
+        public AccommodationCommand(IAccommodationRepository accommodationRepository, IHostRepository hostRepository)
         {
-            _bookingRepository = bookingRepository;
             _accommodationRepository = accommodationRepository;
-            _domainService = domainService;
-            _unitOfWork = unitOfWork;
+            _hostRepository = hostRepository;
         }
         void IAccommodationCommand.CreateAccommodation(CreateAccommodationDto createAccommodationDto)
         {
-            throw new NotImplementedException();
+            // Load
+            var host = _hostRepository.GetHost(createAccommodationDto.HostId);
+            // Do
+            var accommodation = Accommodation.Create(createAccommodationDto.Price, host);
+            // Save
+            _accommodationRepository.AddAccommodation(accommodation);
         }
 
         void IAccommodationCommand.DeleteAccommodation(DeleteAccommodationDto deleteAccommodationDto)

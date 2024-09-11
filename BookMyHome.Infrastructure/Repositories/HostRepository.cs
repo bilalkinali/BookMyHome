@@ -17,7 +17,7 @@ namespace BookMyHome.Infrastructure.Repositories
 
         Host IHostRepository.GetHost(int id)
         {
-            throw new NotImplementedException();
+            return _db.Hosts.Single(h => h.Id == id);
         }
     }
 }

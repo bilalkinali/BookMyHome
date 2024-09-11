@@ -17,6 +17,11 @@ namespace BookMyHome.Infrastructure
             services.AddScoped<IBookingQuery, BookingQuery>();
             services.AddScoped<IBookingDomainService, BookingDomainService>();
             services.AddScoped<IBookingRepository, BookingRepository>();
+
+            services.AddScoped<IAccommodationQuery, AccommodationQuery>();
+            services.AddScoped<IAccommodationRepository, AccommodationRepository>();
+
+            services.AddScoped<IHostRepository, HostRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork<BookMyHomeContext>>();
 
             // Database

@@ -18,13 +18,6 @@ namespace BookMyHome.Infrastructure.Repositories
             _db.SaveChanges();
         }
 
-        void IAccommodationRepository.DeleteAccommodation(Accommodation accommodation, byte[] rowVersion)
-        {
-            _db.Entry(accommodation).Property(nameof(accommodation.RowVersion)).OriginalValue = rowVersion;
-            _db.Accommodations.Remove(accommodation);
-            _db.SaveChanges();
-        }
-
         Accommodation IAccommodationRepository.GetAccommodation(int id)
         {
             return _db.Accommodations
@@ -35,6 +28,13 @@ namespace BookMyHome.Infrastructure.Repositories
         void IAccommodationRepository.UpdateAccommodation(Accommodation accommodation, byte[] rowVersion)
         {
             _db.Entry(accommodation).Property(nameof(accommodation.RowVersion)).OriginalValue = rowVersion;
+            _db.SaveChanges();
+        }
+
+        void IAccommodationRepository.DeleteAccommodation(Accommodation accommodation, byte[] rowVersion)
+        {
+            _db.Entry(accommodation).Property(nameof(accommodation.RowVersion)).OriginalValue = rowVersion;
+            _db.Accommodations.Remove(accommodation);
             _db.SaveChanges();
         }
     }
