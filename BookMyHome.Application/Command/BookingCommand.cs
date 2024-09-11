@@ -22,7 +22,7 @@ namespace BookMyHome.Application.Command
         {
             try
             {
-                _unitOfWork.BeginTransaction(IsolationLevel.Serializable);
+                _unitOfWork.BeginTransaction();
 
                 // Do
                 var booking = Booking.Create(createBookingDto.StartDate, createBookingDto.EndDate, _domainService);
@@ -41,7 +41,7 @@ namespace BookMyHome.Application.Command
         {
             try
             {
-                _unitOfWork.BeginTransaction(IsolationLevel.Serializable);
+                _unitOfWork.BeginTransaction();
 
                 // Load
                 var booking = _repository.GetBooking(updateBookingDto.Id);
@@ -62,10 +62,11 @@ namespace BookMyHome.Application.Command
         void IBookingCommand.DeleteBooking(DeleteBookingDto deleteBookingDto)
         {
             // Load            
-
+            var booking = _repository.GetBooking(deleteBookingDto.Id);
             // Do
 
             // Save
+            _repository.DeleteBooking(booking);
         }
     }
 }

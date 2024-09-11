@@ -6,6 +6,6 @@ namespace BookMyHome.Application.Helpers
     {
         void Commit();
         void Rollback();
-        void BeginTransaction(IsolationLevel isolationLevel);
+        void BeginTransaction(IsolationLevel isolationLevel = IsolationLevel.Serializable);
     }
 }

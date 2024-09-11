@@ -7,5 +7,6 @@ namespace BookMyHome.Application
         void AddBooking(Booking booking);
         Booking GetBooking(int id);
         void UpdateBooking(Booking booking, byte[] rowversion);
+        void DeleteBooking(Booking booking);
     }
 }

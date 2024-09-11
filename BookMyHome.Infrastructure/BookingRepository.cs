@@ -28,5 +28,12 @@ namespace BookMyHome.Infrastructure
             _db.Entry(booking).Property(nameof(booking.RowVersion)).OriginalValue = rowversion;
             _db.SaveChanges();
         }
+
+        void IBookingRepository.DeleteBooking(Booking booking)
+        {
+            // --- RowVersion?
+            _db.Remove(booking);
+            _db.SaveChanges();
+        }
     }
 }
