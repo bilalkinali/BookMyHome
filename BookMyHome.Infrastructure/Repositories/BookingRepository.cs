@@ -35,7 +35,7 @@ namespace BookMyHome.Infrastructure.Repositories
 
         void IBookingRepository.DeleteBooking(Booking booking, byte[] rowversion)
         {
-            // --- RowVersion?
+            // --- RowVersion? 
             _db.Entry(booking).Property(nameof(booking.RowVersion)).OriginalValue = rowversion;
             _db.Bookings.Remove(booking);
             _db.SaveChanges();
