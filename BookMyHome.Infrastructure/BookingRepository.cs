@@ -1,5 +1,6 @@
 ﻿using BookMyHome.Application;
 using BookMyHome.Domain.Entity;
+using Microsoft.VisualBasic;
 
 namespace BookMyHome.Infrastructure
 {
@@ -29,10 +30,11 @@ namespace BookMyHome.Infrastructure
             _db.SaveChanges();
         }
 
-        void IBookingRepository.DeleteBooking(Booking booking)
+        void IBookingRepository.DeleteBooking(Booking booking, byte[] rowversion)
         {
             // --- RowVersion?
-            _db.Remove(booking);
+            _db.Entry(booking).Property(nameof(booking.RowVersion)).OriginalValue = rowversion;
+            _db.Bookings.Remove(booking);
             _db.SaveChanges();
         }
     }
