@@ -17,6 +17,7 @@ namespace BookMyHome.Infrastructure
             services.AddScoped<IBookingQuery, BookingQuery>();
             services.AddScoped<IBookingDomainService, BookingDomainService>();
             services.AddScoped<IBookingRepository, BookingRepository>();
+            services.AddScoped<IUnitOfWork, UnitOfWork<BookMyHomeContext>>();
 
             // Database
             // https://github.com/dotnet/SqlClient/issues/2239
@@ -29,12 +30,6 @@ namespace BookMyHome.Infrastructure
                         ("BookMyHomeDbConnection"),
                     x =>
                         x.MigrationsAssembly("BookMyHome.DatabaseMigration")));
-
-            services.AddScoped<IUnitOfWork, UnitOfWork>(p =>
-            {
-                var db = p.GetService<BookMyHomeContext>();
-                return new UnitOfWork(db);
-            });
 
             return services;
         }
