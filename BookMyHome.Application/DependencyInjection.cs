@@ -1,4 +1,5 @@
 ﻿using BookMyHome.Application.Command;
+using BookMyHome.Application.Command.Interfaces;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BookMyHome.Application

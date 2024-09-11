@@ -1,6 +1,6 @@
 using BookMyHome.Application;
-using BookMyHome.Application.Command;
-using BookMyHome.Application.Command.CommandDto;
+using BookMyHome.Application.Command.CommandDto.Booking;
+using BookMyHome.Application.Command.Interfaces;
 using BookMyHome.Application.Query;
 using BookMyHome.Infrastructure;
 using Microsoft.AspNetCore.Mvc;

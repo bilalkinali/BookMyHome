@@ -1,11 +1,12 @@
 ﻿using BookMyHome.Application.Query;
-using BookMyHome.Application;
 using BookMyHome.Domain.DomainServices;
 using BookMyHome.Infrastructure.Queries;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using BookMyHome.Application.Helpers;
+using BookMyHome.Infrastructure.Repositories;
+using BookMyHome.Application.RepositoryInterface;
 
 namespace BookMyHome.Infrastructure
 {

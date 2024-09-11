@@ -9,7 +9,6 @@
     /// <summary>
     /// Data transfer object for booking
     /// </summary>
-
     public class BookingDto
     {
         public int Id { get; set; }

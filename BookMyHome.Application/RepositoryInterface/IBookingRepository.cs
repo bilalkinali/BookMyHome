@@ -1,6 +1,6 @@
 ﻿using BookMyHome.Domain.Entity;
 
-namespace BookMyHome.Application
+namespace BookMyHome.Application.RepositoryInterface
 {
     public interface IBookingRepository
     {
