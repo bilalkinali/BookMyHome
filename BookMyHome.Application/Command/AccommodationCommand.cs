@@ -8,6 +8,7 @@ namespace BookMyHome.Application.Command
 {
     public class AccommodationCommand : IAccommodationCommand
     {
+        // Fix
         private readonly IBookingRepository _bookingRepository;
         private readonly IAccommodationRepository _accommodationRepository;
         private readonly IBookingDomainService _domainService;

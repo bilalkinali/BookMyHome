@@ -14,9 +14,10 @@ namespace BookMyHome.Domain.Entity
         {
             StartDate = startDate;
             EndDate = endDate;
+            Accommodation = accommodation;
 
             StartDateBeforeEndDate();
-
+            
             StartDateInFuture(DateOnly.FromDateTime(DateTime.Now));
 
             IsOverlapping(bookingDomainService.GetOtherBookings(this));

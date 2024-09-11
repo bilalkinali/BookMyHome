@@ -5,7 +5,7 @@ namespace BookMyHome.Domain.Entity
     public class Accommodation : DomainEntity
     {
         public double Price { get; protected set; }
-        public IEnumerable<Booking> Bookings { get; protected set; }
+        public List<Booking> Bookings { get; protected set; }
         public Host Host { get; protected set; }
 
         protected Accommodation () {}
