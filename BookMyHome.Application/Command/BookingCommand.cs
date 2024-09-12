@@ -26,6 +26,7 @@ namespace BookMyHome.Application.Command
             try
             {
                 _unitOfWork.BeginTransaction();
+
                 // Load
                 var accommodation = _accommodationRepository.GetAccommodation(createBookingDto.AccommodationId);
                 // Do
