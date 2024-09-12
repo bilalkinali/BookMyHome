@@ -16,9 +16,9 @@ namespace BookMyHome.Infrastructure
         {
             var result = _db.Accommodations
                 .Where(a => a.Id == booking.Accommodation.Id)
-                .Include(b => b.Bookings)
+                .Include(a => a.Bookings)
                 .SelectMany(a => a.Bookings)
-                .Except(new List<Booking>(new[] { booking }))
+                .Where(b => b.Id != booking.Id)
                 .ToList();
 
             return result;
