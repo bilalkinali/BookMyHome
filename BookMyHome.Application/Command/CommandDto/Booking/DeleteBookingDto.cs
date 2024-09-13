@@ -1,4 +1,4 @@
-﻿namespace BookMyHome.Application.Command.CommandDto;
+﻿namespace BookMyHome.Application.Command.CommandDto.Booking;
 
 public record DeleteBookingDto
 {

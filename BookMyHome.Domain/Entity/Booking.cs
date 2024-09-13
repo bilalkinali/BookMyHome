@@ -6,16 +6,18 @@ namespace BookMyHome.Domain.Entity
     {
         public DateOnly StartDate { get; protected set; }
         public DateOnly EndDate { get; protected set; }
+        public Accommodation Accommodation { get; protected set; }
         
         protected Booking() { }
 
-        private Booking(DateOnly startDate, DateOnly endDate, IBookingDomainService bookingDomainService)
+        private Booking(DateOnly startDate, DateOnly endDate, Accommodation accommodation, IBookingDomainService bookingDomainService)
         {
             StartDate = startDate;
             EndDate = endDate;
+            Accommodation = accommodation;
 
             StartDateBeforeEndDate();
-
+            
             StartDateInFuture(DateOnly.FromDateTime(DateTime.Now));
 
             IsOverlapping(bookingDomainService.GetOtherBookings(this));
@@ -48,11 +50,13 @@ namespace BookMyHome.Domain.Entity
         /// </summary>
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
+        /// <param name="accommodation"></param>
         /// <param name="bookingDomainService"></param>
         /// <returns></returns>
-        public static Booking Create(DateOnly startDate, DateOnly endDate, IBookingDomainService bookingDomainService)
+        public static Booking Create(DateOnly startDate, DateOnly endDate, Accommodation accommodation,
+            IBookingDomainService bookingDomainService)
         {
-            return new Booking(startDate, endDate, bookingDomainService);
+            return new Booking(startDate, endDate, accommodation, bookingDomainService);
         }
 
         public void Update(DateOnly startDate, DateOnly endDate, IBookingDomainService domainService)

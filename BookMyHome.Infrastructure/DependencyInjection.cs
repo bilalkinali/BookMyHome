@@ -1,11 +1,12 @@
 ﻿using BookMyHome.Application.Query;
-using BookMyHome.Application;
 using BookMyHome.Domain.DomainServices;
 using BookMyHome.Infrastructure.Queries;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.EntityFrameworkCore;
 using BookMyHome.Application.Helpers;
+using BookMyHome.Infrastructure.Repositories;
+using BookMyHome.Application.RepositoryInterface;
 
 namespace BookMyHome.Infrastructure
 {
@@ -16,6 +17,14 @@ namespace BookMyHome.Infrastructure
             services.AddScoped<IBookingQuery, BookingQuery>();
             services.AddScoped<IBookingDomainService, BookingDomainService>();
             services.AddScoped<IBookingRepository, BookingRepository>();
+
+            services.AddScoped<IAccommodationQuery, AccommodationQuery>();
+            services.AddScoped<IAccommodationRepository, AccommodationRepository>();
+
+            services.AddScoped<IHostQuery, HostQuery>();
+            services.AddScoped<IHostRepository, HostRepository>();
+
+            services.AddScoped<IUnitOfWork, UnitOfWork<BookMyHomeContext>>();
 
             // Database
             // https://github.com/dotnet/SqlClient/issues/2239
@@ -28,12 +37,6 @@ namespace BookMyHome.Infrastructure
                         ("BookMyHomeDbConnection"),
                     x =>
                         x.MigrationsAssembly("BookMyHome.DatabaseMigration")));
-
-            services.AddScoped<IUnitOfWork, UnitOfWork>(p =>
-            {
-                var db = p.GetService<BookMyHomeContext>();
-                return new UnitOfWork(db);
-            });
 
             return services;
         }

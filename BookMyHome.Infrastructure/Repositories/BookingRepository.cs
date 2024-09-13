@@ -1,8 +1,9 @@
-﻿using BookMyHome.Application;
+﻿using BookMyHome.Application.RepositoryInterface;
 using BookMyHome.Domain.Entity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualBasic;
 
-namespace BookMyHome.Infrastructure
+namespace BookMyHome.Infrastructure.Repositories
 {
     public class BookingRepository : IBookingRepository
     {
@@ -21,7 +22,9 @@ namespace BookMyHome.Infrastructure
 
         Booking IBookingRepository.GetBooking(int id)
         {
-            return _db.Bookings.Single(b => b.Id == id);
+            return _db.Bookings
+                .Include(b => b.Accommodation)
+                .Single(b => b.Id == id);
         }
 
         void IBookingRepository.UpdateBooking(Booking booking, byte[] rowversion)
@@ -32,7 +35,7 @@ namespace BookMyHome.Infrastructure
 
         void IBookingRepository.DeleteBooking(Booking booking, byte[] rowversion)
         {
-            // --- RowVersion?
+            // --- RowVersion? 
             _db.Entry(booking).Property(nameof(booking.RowVersion)).OriginalValue = rowversion;
             _db.Bookings.Remove(booking);
             _db.SaveChanges();

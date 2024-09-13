@@ -1,6 +1,6 @@
-﻿using BookMyHome.Application.Command.CommandDto;
+﻿using BookMyHome.Application.Command.CommandDto.Booking;
 
-namespace BookMyHome.Application.Command
+namespace BookMyHome.Application.Command.Interfaces
 {
     public interface IBookingCommand
     {
