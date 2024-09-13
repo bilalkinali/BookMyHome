@@ -2,7 +2,6 @@
 using BookMyHome.Application.Command.Interfaces;
 using BookMyHome.Application.Helpers;
 using BookMyHome.Application.RepositoryInterface;
-using BookMyHome.Domain.DomainServices;
 using BookMyHome.Domain.Entity;
 
 namespace BookMyHome.Application.Command
@@ -12,30 +11,76 @@ namespace BookMyHome.Application.Command
         // Fix
         private readonly IAccommodationRepository _accommodationRepository;
         private readonly IHostRepository _hostRepository;
+        private readonly IUnitOfWork _unitOfWork;
 
-        public AccommodationCommand(IAccommodationRepository accommodationRepository, IHostRepository hostRepository)
+        public AccommodationCommand(IAccommodationRepository accommodationRepository, IHostRepository hostRepository, IUnitOfWork unitOfWork)
         {
             _accommodationRepository = accommodationRepository;
             _hostRepository = hostRepository;
+            _unitOfWork = unitOfWork;
         }
         void IAccommodationCommand.CreateAccommodation(CreateAccommodationDto createAccommodationDto)
         {
-            // Load
-            var host = _hostRepository.GetHost(createAccommodationDto.HostId);
-            // Do
-            var accommodation = Accommodation.Create(createAccommodationDto.Price, host);
-            // Save
-            _accommodationRepository.AddAccommodation(accommodation);
-        }
+            try
+            {
+                _unitOfWork.BeginTransaction();
 
-        void IAccommodationCommand.DeleteAccommodation(DeleteAccommodationDto deleteAccommodationDto)
-        {
-            throw new NotImplementedException();
+                // Load
+                var host = _hostRepository.GetHost(createAccommodationDto.HostId);
+                // Do
+                var accommodation = Accommodation.Create(createAccommodationDto.Price, host);
+                // Save
+                _accommodationRepository.AddAccommodation(accommodation);
+
+                _unitOfWork.Commit();
+            }
+            catch (Exception)
+            {
+                _unitOfWork.Rollback();
+                throw;
+            }
         }
 
         void IAccommodationCommand.UpdateAccommodation(UpdateAccommodationDto updateAccommodationDto)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _unitOfWork.BeginTransaction();
+
+                // Load
+                var accommodation = _accommodationRepository.GetAccommodation(updateAccommodationDto.Id);
+                // Do
+                accommodation.Update(updateAccommodationDto.Price);
+                // Save
+                _accommodationRepository.UpdateAccommodation(accommodation, updateAccommodationDto.RowVersion);
+
+                _unitOfWork.Commit();
+            }
+            catch (Exception)
+            {
+                _unitOfWork.Rollback();
+                throw;
+            }
+        }
+
+        void IAccommodationCommand.DeleteAccommodation(DeleteAccommodationDto deleteAccommodationDto)
+        {
+            try
+            {
+                _unitOfWork.BeginTransaction();
+
+                // Load
+                var accommodation = _accommodationRepository.GetAccommodation(deleteAccommodationDto.Id);
+                //Do & Save
+                _accommodationRepository.DeleteAccommodation(accommodation, deleteAccommodationDto.RowVersion);
+
+                _unitOfWork.Commit();
+            }
+            catch (Exception)
+            {
+                _unitOfWork.Rollback();
+                throw;
+            }
         }
     }
 }

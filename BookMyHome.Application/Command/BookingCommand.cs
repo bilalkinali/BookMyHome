@@ -72,9 +72,7 @@ namespace BookMyHome.Application.Command
 
                 // Load            
                 var booking = _bookingRepository.GetBooking(deleteBookingDto.Id);
-                // Do
-
-                // Save
+                // Do & Save
                 _bookingRepository.DeleteBooking(booking, deleteBookingDto.RowVersion);
 
                 _unitOfWork.Commit();
