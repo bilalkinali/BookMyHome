@@ -4,6 +4,7 @@
     {
         BookingDto GetBooking(int id);
         IEnumerable<BookingDto> GetBookings();
+        IEnumerable<BookingDto> GetBookingsForAccommodation(int id);
     }
 
     /// <summary>
