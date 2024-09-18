@@ -25,10 +25,11 @@ namespace BookMyHome.Application.Command
         {
             try
             {
-                _unitOfWork.BeginTransaction();
-
                 // Load
                 var accommodation = _accommodationRepository.GetAccommodation(createBookingDto.AccommodationId);
+
+                _unitOfWork.BeginTransaction(); // Transaction for phantom read
+
                 // Do
                 var booking = Booking.Create(createBookingDto.StartDate, createBookingDto.EndDate, accommodation, _domainService);
                 // Save

@@ -23,10 +23,11 @@ namespace BookMyHome.Application.Command
         {
             try
             {
-                _unitOfWork.BeginTransaction();
-
                 // Load
                 var host = _hostRepository.GetHost(createAccommodationDto.HostId);
+
+                _unitOfWork.BeginTransaction(); // Transaction for phantom read
+
                 // Do
                 var accommodation = Accommodation.Create(createAccommodationDto.Price, host);
                 // Save
