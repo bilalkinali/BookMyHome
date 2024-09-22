@@ -4,7 +4,7 @@ namespace BookMyHome.Application.RepositoryInterface
 {
     public interface IHostRepository
     {
-        void AddHost(Host host);
-        Host GetHost(int id);
+        void Add(Host host);
+        Host Get(int id);
     }
 }

@@ -10,13 +10,13 @@ namespace BookMyHome.Infrastructure.Repositories
         {
             _db = context;
         }
-        void IHostRepository.AddHost(Host host)
+        void IHostRepository.Add(Host host)
         {
             _db.Hosts.Add(host);
             _db.SaveChanges();
         }
 
-        Host IHostRepository.GetHost(int id)
+        Host IHostRepository.Get(int id)
         {
             return _db.Hosts.Single(h => h.Id == id);
         }

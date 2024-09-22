@@ -1,4 +1,5 @@
 ﻿using BookMyHome.Application.Query;
+using BookMyHome.Application.Query.QueryDto;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookMyHome.Infrastructure.Queries;
@@ -12,14 +13,21 @@ public class BookingQuery : IBookingQuery
         _db = db;
     }
 
-    BookingDto IBookingQuery.GetBooking(int id)
+    BookingDto IBookingQuery.GetBooking(int accommodationId, int bookingId)
     {
-        var booking = _db.Bookings.AsNoTracking().Single(b => b.Id == id);
+        var accommodation = _db.Accommodations
+            .Include(a => a.Bookings)
+            .AsNoTracking()
+            .Single(a => a.Id == bookingId);
+
+        var booking = accommodation.Bookings.Single(b => b.Id == bookingId);
+
         return new BookingDto
         {
             Id = booking.Id,
             StartDate = booking.StartDate,
             EndDate = booking.EndDate,
+            AccommodationId = accommodation.Id,
             RowVersion = booking.RowVersion
         };
     }
@@ -34,20 +42,26 @@ public class BookingQuery : IBookingQuery
                 EndDate = b.EndDate,
                 RowVersion = b.RowVersion
             });
+
         return result;
     }
-
-    IEnumerable<BookingDto> IBookingQuery.GetBookingsForAccommodation(int id)
+    
+    IEnumerable<BookingDto> IBookingQuery.GetBookingsForAccommodation(int accommodationId)
     {
-        var result = _db.Bookings.AsNoTracking()
-            .Where(b => b.Accommodation.Id == id)
-            .Select(b => new BookingDto
-            {
-                Id = b.Id,
-                StartDate = b.StartDate,
-                EndDate = b.EndDate,
-                RowVersion = b.RowVersion
-            });
+        var accomodation = _db.Accommodations
+            .Include(b => b.Bookings)
+            .AsNoTracking()
+            .Single(a => a.Id == accommodationId);
+
+        var result = accomodation.Bookings.Select(b => new BookingDto
+        {
+            Id = b.Id,
+            StartDate = b.StartDate,
+            EndDate = b.EndDate,
+            AccommodationId = accomodation.Id,
+            RowVersion = b.RowVersion
+        });
+
         return result;
     }
 }

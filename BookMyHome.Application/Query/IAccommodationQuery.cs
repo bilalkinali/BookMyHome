@@ -1,18 +1,9 @@
-﻿using BookMyHome.Domain.Entity;
+﻿using BookMyHome.Application.Query.QueryDto;
 
-namespace BookMyHome.Application.Query
+namespace BookMyHome.Application.Query;
+
+public interface IAccommodationQuery
 {
-    public interface IAccommodationQuery
-    {
-        AccommodationDto GetAccommodation(int id);
-        IEnumerable<AccommodationDto> GetAccommodations();
-    }
-
-    public class AccommodationDto
-    {
-        public int Id { get; set; }
-        public double Price { get; set; }
-        public Host Host { get; set; }
-        public byte[] RowVersion { get; set; }
-    }
+    AccommodationDto GetAccommodation(int id);
+    IEnumerable<AccommodationDto> GetAccommodations();
 }

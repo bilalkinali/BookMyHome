@@ -1,4 +1,5 @@
 ﻿using BookMyHome.Application.Query;
+using BookMyHome.Application.Query.QueryDto;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookMyHome.Infrastructure.Queries
@@ -14,11 +15,11 @@ namespace BookMyHome.Infrastructure.Queries
         AccommodationDto IAccommodationQuery.GetAccommodation(int id)
         {
             var accommodation = _db.Accommodations.AsNoTracking().Single(a => a.Id == id);
+
             return new AccommodationDto
             {
                 Id = accommodation.Id,
                 Price = accommodation.Price,
-                RowVersion = accommodation.RowVersion
             };
         }
 
@@ -29,8 +30,8 @@ namespace BookMyHome.Infrastructure.Queries
                 {
                     Id = a.Id,
                     Price = a.Price,
-                    RowVersion = a.RowVersion
                 });
+
             return result;
         }
     }

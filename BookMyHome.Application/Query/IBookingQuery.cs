@@ -1,20 +1,15 @@
-﻿namespace BookMyHome.Application.Query
+﻿using BookMyHome.Application.Query.QueryDto;
+
+namespace BookMyHome.Application.Query
 {
     public interface IBookingQuery
     {
-        BookingDto GetBooking(int id);
+        BookingDto GetBooking(int accommodationId, int bookingId);
         IEnumerable<BookingDto> GetBookings();
-        IEnumerable<BookingDto> GetBookingsForAccommodation(int id);
+        IEnumerable<BookingDto> GetBookingsForAccommodation(int accommodationId);
     }
 
     /// <summary>
     /// Data transfer object for booking
     /// </summary>
-    public class BookingDto
-    {
-        public int Id { get; set; }
-        public DateOnly StartDate { get; set; }
-        public DateOnly EndDate { get; set; }
-        public byte[] RowVersion { get; set; }
-    }
 }

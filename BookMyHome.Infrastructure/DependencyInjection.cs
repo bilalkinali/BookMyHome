@@ -1,5 +1,4 @@
 ﻿using BookMyHome.Application.Query;
-using BookMyHome.Domain.DomainServices;
 using BookMyHome.Infrastructure.Queries;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,10 +14,7 @@ namespace BookMyHome.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IBookingQuery, BookingQuery>();
-            services.AddScoped<IBookingDomainService, BookingDomainService>();
-            services.AddScoped<IBookingRepository, BookingRepository>();
 
-            services.AddScoped<IAccommodationQuery, AccommodationQuery>();
             services.AddScoped<IAccommodationRepository, AccommodationRepository>();
 
             services.AddScoped<IHostQuery, HostQuery>();

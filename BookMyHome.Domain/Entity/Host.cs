@@ -2,7 +2,9 @@
 {
     public class Host : DomainEntity
     {
-        public List<Accommodation>? Accommodations { get; protected set; }
+        private readonly List<Accommodation>? _accommodations;
+
+        public IReadOnlyCollection<Accommodation> Accommodations => _accommodations ?? [];
 
         protected Host() {}
 

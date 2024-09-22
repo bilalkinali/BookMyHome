@@ -3,12 +3,14 @@
     public class Accommodation : DomainEntity
     {
         public double Price { get; protected set; }
-        public List<Booking> Bookings { get; protected set; }
         public Host Host { get; protected set; }
+        public IReadOnlyCollection<Booking> Bookings => _bookings;
+
+        private readonly List<Booking> _bookings = new List<Booking>();
 
         protected Accommodation () {}
 
-        private Accommodation(double price, Host host)
+        protected Accommodation(double price, Host host)
         {
             Price = price;
             Host = host;
@@ -24,7 +26,6 @@
         public void Update(double price)
         {
             Price = price;
-
             AssurePriceOverZero();
         }
 
@@ -34,6 +35,22 @@
             {
                 throw new ArgumentException("Prisen skal være over 0");
             }
+        }
+
+        // Booking
+
+        public void CreateBooking(DateOnly startDate, DateOnly endDate)
+        {
+            var booking = Booking.Create(startDate, endDate, Bookings);
+            _bookings.Add(booking);
+        }
+
+        public Booking UpdateBooking(int bookingId, DateOnly startDate, DateOnly endDate)
+        {
+            var booking = Bookings.FirstOrDefault(b => b.Id == bookingId);
+            if (booking == null) throw new ArgumentException("Booking not found");
+            booking.Update(startDate, endDate, Bookings);
+            return booking;
         }
     }
 }

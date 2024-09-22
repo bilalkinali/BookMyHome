@@ -34,22 +34,27 @@ app.MapGet("/hello", () => "Hello World");
 
 // Booking
 app.MapGet("/booking", (IBookingQuery query) => query.GetBookings());
-app.MapGet("/booking/{id}", (int id, IBookingQuery query) => query.GetBooking(id));
-app.MapPost("/booking", (CreateBookingDto booking, IBookingCommand command) => command.CreateBooking(booking));
-app.MapPut("/booking", (UpdateBookingDto booking, IBookingCommand command) => command.UpdateBooking(booking));
-app.MapDelete("/booking", ([FromBody] DeleteBookingDto booking, IBookingCommand command) => command.DeleteBooking(booking));
+app.MapGet("/accommodation/{id}/booking", (int id, IBookingQuery query) => query.GetBookingsForAccommodation(id));
+app.MapGet("/accommodation/{accommodationId}/booking/{bookingId}", (int accommodationId, int bookingId, IBookingQuery query) => query.GetBooking(accommodationId, bookingId));
+app.MapPost("/accommodation/booking", (CreateBookingDto booking, IAccommodationCommand command) => command.CreateBooking(booking));
+app.MapPut("/accommodation/booking", (UpdateBookingDto booking, IAccommodationCommand command) => command.UpdateBooking(booking));
+
+//app.MapGet("/booking/{id}", (int id, IBookingQuery query) => query.GetBooking(id));
+//app.MapPost("/booking", (CreateBookingDto booking, IBookingCommand command) => command.CreateBooking(booking));
+//app.MapPut("/booking", (UpdateBookingDto booking, IBookingCommand command) => command.UpdateBooking(booking));
+//app.MapDelete("/booking", ([FromBody] DeleteBookingDto booking, IBookingCommand command) => command.DeleteBooking(booking));
 
 // Accommodation
 app.MapGet("/accommodation", (IAccommodationQuery query) => query.GetAccommodations());
 app.MapGet("/accommodation/{id}", (int id, IAccommodationQuery query) => query.GetAccommodation(id));
-app.MapGet("/accommodation/{id}/bookings", (int id, IBookingQuery query) => query.GetBookingsForAccommodation(id));
-app.MapPost("/accommdation", (CreateAccommodationDto accommodation, IAccommodationCommand command) => command.CreateAccommodation(accommodation));
-app.MapPut("/accommdation", (UpdateAccommodationDto accommodation, IAccommodationCommand command) => command.UpdateAccommodation(accommodation));
-app.MapDelete("/accommdation", ([FromBody] DeleteAccommodationDto accommodation, IAccommodationCommand command) => command.DeleteAccommodation(accommodation));
+app.MapPost("/accommodation", (CreateAccommodationDto accommodation, IAccommodationCommand command) => command.Create(accommodation));
+app.MapPut("/accommdation", (UpdateAccommodationDto accommodation, IAccommodationCommand command) => command.Update(accommodation));
+app.MapDelete("/accommdation", ([FromBody] DeleteAccommodationDto accommodation, IAccommodationCommand command) => command.Delete(accommodation));
 
 // Host
-app.MapGet("/host", (IHostQuery query) => query.GetHosts());
-app.MapGet("/host/{id}", (int id, IHostQuery query) => query.GetHost(id));
+//app.MapGet("/host", (IHostQuery query) => query.GetHosts());
+//app.MapGet("/host/{id}", (int id, IHostQuery query) => query.GetHost(id));
+app.MapGet("/host/{id}/accommodation", (int id, IHostQuery query) => query.GetAccommodations(id));
 app.MapPost("/host", (CreateHostDto host, IHostCommand command) => command.CreateHost(host));
 
 app.Run();

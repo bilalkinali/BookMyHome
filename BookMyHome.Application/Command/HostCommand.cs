@@ -7,15 +7,16 @@ namespace BookMyHome.Application.Command
 {
     public class HostCommand : IHostCommand
     {
-        private readonly IHostRepository _hostRepository;
-        public HostCommand(IHostRepository hostRepository)
+        private readonly IHostRepository _repository;
+        public HostCommand(IHostRepository repository)
         {
-            _hostRepository = hostRepository;
+            _repository = repository;
         }
         void IHostCommand.CreateHost(CreateHostDto createHostDto)
         {
             var host = Host.Create();
-            _hostRepository.AddHost(host);
+
+            _repository.Add(host);
         }
     }
 }
