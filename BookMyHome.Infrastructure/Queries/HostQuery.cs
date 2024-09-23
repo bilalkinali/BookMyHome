@@ -16,7 +16,7 @@ internal class HostQuery : IHostQuery
     HostDto? IHostQuery.GetAccommodations(int hostId)
     {
         var host = _db.Hosts
-            .AsNoTracking()? // =?
+            //.AsNoTracking()? // ?
             .Include(a => a.Accommodations)
             .ThenInclude(b => b.Bookings)
             .FirstOrDefault(h => h.Id == hostId);
