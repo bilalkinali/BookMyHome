@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookMyHome.DatabaseMigration.Migrations
 {
     [DbContext(typeof(BookMyHomeContext))]
-    [Migration("20240912073530_InitialMigration")]
+    [Migration("20240923130217_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -60,7 +60,7 @@ namespace BookMyHome.DatabaseMigration.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AccommodationId")
+                    b.Property<int?>("AccommodationId")
                         .HasColumnType("int");
 
                     b.Property<DateOnly>("EndDate")
@@ -114,13 +114,9 @@ namespace BookMyHome.DatabaseMigration.Migrations
 
             modelBuilder.Entity("BookMyHome.Domain.Entity.Booking", b =>
                 {
-                    b.HasOne("BookMyHome.Domain.Entity.Accommodation", "Accommodation")
+                    b.HasOne("BookMyHome.Domain.Entity.Accommodation", null)
                         .WithMany("Bookings")
-                        .HasForeignKey("AccommodationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Accommodation");
+                        .HasForeignKey("AccommodationId");
                 });
 
             modelBuilder.Entity("BookMyHome.Domain.Entity.Accommodation", b =>

@@ -57,7 +57,7 @@ namespace BookMyHome.DatabaseMigration.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("AccommodationId")
+                    b.Property<int?>("AccommodationId")
                         .HasColumnType("int");
 
                     b.Property<DateOnly>("EndDate")
@@ -111,13 +111,9 @@ namespace BookMyHome.DatabaseMigration.Migrations
 
             modelBuilder.Entity("BookMyHome.Domain.Entity.Booking", b =>
                 {
-                    b.HasOne("BookMyHome.Domain.Entity.Accommodation", "Accommodation")
+                    b.HasOne("BookMyHome.Domain.Entity.Accommodation", null)
                         .WithMany("Bookings")
-                        .HasForeignKey("AccommodationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Accommodation");
+                        .HasForeignKey("AccommodationId");
                 });
 
             modelBuilder.Entity("BookMyHome.Domain.Entity.Accommodation", b =>

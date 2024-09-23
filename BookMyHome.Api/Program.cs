@@ -48,8 +48,8 @@ app.MapPut("/accommodation/booking", (UpdateBookingDto booking, IAccommodationCo
 app.MapGet("/accommodation", (IAccommodationQuery query) => query.GetAccommodations());
 app.MapGet("/accommodation/{id}", (int id, IAccommodationQuery query) => query.GetAccommodation(id));
 app.MapPost("/accommodation", (CreateAccommodationDto accommodation, IAccommodationCommand command) => command.Create(accommodation));
-app.MapPut("/accommdation", (UpdateAccommodationDto accommodation, IAccommodationCommand command) => command.Update(accommodation));
-app.MapDelete("/accommdation", ([FromBody] DeleteAccommodationDto accommodation, IAccommodationCommand command) => command.Delete(accommodation));
+app.MapPut("/accommodation", (UpdateAccommodationDto accommodation, IAccommodationCommand command) => command.Update(accommodation));
+app.MapDelete("/accommodation", ([FromBody] DeleteAccommodationDto accommodation, IAccommodationCommand command) => command.Delete(accommodation));
 
 // Host
 //app.MapGet("/host", (IHostQuery query) => query.GetHosts());
