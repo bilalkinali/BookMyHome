@@ -28,7 +28,7 @@ internal class HostQuery : IHostQuery
             Id = host.Id,
             Accommodations = host.Accommodations.Select(a => new AccommodationDto
             {
-                Id = a.Id,
+                Id = a.Id, // protected get; -> doesn't show in JSON
                 Price = a.Price,
                 HostId = a.Host.Id,
                 Bookings = a.Bookings.Select(b => new BookingDto
@@ -36,7 +36,7 @@ internal class HostQuery : IHostQuery
                     Id = b.Id,
                     StartDate = b.StartDate,
                     EndDate = b.EndDate,
-                    AccommodationId = a.Id,
+                    AccommodationId = a.Id, // Remove?
                     RowVersion = b.RowVersion
                 })
             })
