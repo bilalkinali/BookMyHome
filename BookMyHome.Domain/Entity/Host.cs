@@ -1,16 +1,15 @@
-﻿namespace BookMyHome.Domain.Entity
+﻿namespace BookMyHome.Domain.Entity;
+
+public class Host : DomainEntity
 {
-    public class Host : DomainEntity
+    private readonly List<Accommodation>? _accommodations;
+
+    protected Host() {}
+
+    public IReadOnlyCollection<Accommodation> Accommodations => _accommodations ?? [];
+
+    public static Host Create()
     {
-        private readonly List<Accommodation>? _accommodations;
-
-        public IReadOnlyCollection<Accommodation> Accommodations => _accommodations ?? [];
-
-        protected Host() {}
-
-        public static Host Create()
-        {
-            return new Host();
-        }
+        return new Host();
     }
 }

@@ -18,7 +18,7 @@ public class BookingQuery : IBookingQuery
         var accommodation = _db.Accommodations
             .Include(a => a.Bookings)
             .AsNoTracking()
-            .Single(a => a.Id == bookingId);
+            .Single(a => a.Id == accommodationId);
 
         var booking = accommodation.Bookings.Single(b => b.Id == bookingId);
 

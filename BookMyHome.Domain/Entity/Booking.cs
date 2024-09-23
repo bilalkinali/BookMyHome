@@ -36,7 +36,8 @@ public class Booking : DomainEntity
 
     protected void IsOverlapping(IEnumerable<Booking> existingBookings)
     {
-        if (existingBookings.Any(other =>
+        var otherBookings = existingBookings.Where(b => b != this);
+        if (otherBookings.Any(other =>
                 (EndDate <= other.EndDate && EndDate >= other.StartDate) ||
                 (StartDate >= other.StartDate && StartDate <= other.EndDate) ||
                 (StartDate <= other.StartDate && EndDate >= other.EndDate)))

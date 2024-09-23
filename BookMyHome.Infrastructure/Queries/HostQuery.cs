@@ -36,6 +36,7 @@ internal class HostQuery : IHostQuery
                     Id = b.Id,
                     StartDate = b.StartDate,
                     EndDate = b.EndDate,
+                    AccommodationId = a.Id,
                     RowVersion = b.RowVersion
                 })
             })
