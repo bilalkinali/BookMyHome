@@ -71,11 +71,4 @@ public class AccommodationRepository : IAccommodationRepository
     {
         _db.SaveChanges();
     }
-
-
-
-    void IAccommodationRepository.Update(Accommodation accommodation, byte[] rowVersion)
-    {
-        throw new NotImplementedException();
-    }
 }

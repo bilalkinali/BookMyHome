@@ -4,6 +4,7 @@
     {
         public Review() {}
 
+        public int Id { get; protected set; }
         public double Rating { get; protected set; }
         public string? Comment { get; protected set; }
         public DateOnly Date { get; protected set; }
