@@ -1,6 +1,6 @@
 ﻿namespace BookMyHome.Domain.Entity
 {
-    public class Review : DomainEntity
+    public class Review
     {
         public Review() {}
 

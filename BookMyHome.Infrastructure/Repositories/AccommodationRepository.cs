@@ -26,6 +26,14 @@ public class AccommodationRepository : IAccommodationRepository
             .Single(a => a.Id == id);
     }
 
+    Accommodation IAccommodationRepository.GetAccommodationWithBookingId(int id)
+    {
+        return _db.Accommodations
+            .Where(a => a.Bookings
+                .Any(b => b.Id == 1))
+            .First();
+    }
+
     void IAccommodationRepository.Update(Accommodation accommodation, byte[] rowVersion)
     {
         _db.Entry(accommodation).Property(nameof(accommodation.RowVersion)).OriginalValue = rowVersion;
@@ -57,5 +65,17 @@ public class AccommodationRepository : IAccommodationRepository
         _db.Entry(booking).Property(nameof(booking.RowVersion)).OriginalValue = rowVersion;
         _db.Bookings.Remove(booking);
         _db.SaveChanges();
+    }
+
+    void IAccommodationRepository.AddReview(Booking booking)
+    {
+        _db.SaveChanges();
+    }
+
+
+
+    void IAccommodationRepository.Update(Accommodation accommodation, byte[] rowVersion)
+    {
+        throw new NotImplementedException();
     }
 }

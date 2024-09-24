@@ -79,9 +79,10 @@ public class Booking : DomainEntity
             throw new ArgumentException("EndDate skal være i fortiden");
     }
 
-    public void AddReview(Review review)
+    public void AddReview(double rating, string comment, DateOnly date, int bookingId)
     {
-        IsReviewable(review);
-        Review = review;
+        //IsReviewable(review);
+        var test = Review.Create(rating, comment, bookingId);
+        Review = test;
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BookMyHome.Application.Command.CommandDto.Accommodation;
 using BookMyHome.Application.Command.CommandDto.Booking;
+using BookMyHome.Application.Command.CommandDto.Review;
 using BookMyHome.Application.Command.Interfaces;
 using BookMyHome.Application.Helpers;
 using BookMyHome.Application.RepositoryInterface;
@@ -193,6 +194,17 @@ namespace BookMyHome.Application.Command
                 }
                 throw;
             }
+        }
+
+        void IAccommodationCommand.AddReview(CreateReviewDto createReviewDto)
+        {
+            // Load
+            var accommodation = _repository.GetAccommodationWithBookingId(createReviewDto.BookingId);
+            // Do
+            var booking = accommodation.Bookings.Single(b => b.Id == createReviewDto.BookingId);
+            booking.AddReview(createReviewDto.Rating, createReviewDto.Comment, createReviewDto.Date , createReviewDto.BookingId);
+            // Save
+            _repository.AddReview(booking);
         }
     }
 }

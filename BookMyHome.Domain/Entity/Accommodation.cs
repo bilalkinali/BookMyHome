@@ -26,6 +26,7 @@
         public void Update(double price)
         {
             Price = price;
+
             AssurePriceOverZero();
         }
 
@@ -51,6 +52,13 @@
             if (booking == null) throw new ArgumentException("Booking not found");
             booking.Update(startDate, endDate, Bookings);
             return booking;
+        }
+
+        public void AddReview(double rating, string comment, DateOnly date, int bookingId)
+        {
+            var booking = Bookings.FirstOrDefault(b => b.Id == bookingId);
+            if (booking == null) throw new ArgumentException("Booking not found");
+            booking.AddReview(rating, comment, date, bookingId);
         }
     }
 }
