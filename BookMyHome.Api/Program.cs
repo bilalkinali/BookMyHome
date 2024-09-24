@@ -1,5 +1,4 @@
 using BookMyHome.Application;
-using BookMyHome.Application.Command;
 using BookMyHome.Application.Command.CommandDto.Accommodation;
 using BookMyHome.Application.Command.CommandDto.Booking;
 using BookMyHome.Application.Command.CommandDto.Guest;
