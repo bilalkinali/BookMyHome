@@ -20,6 +20,8 @@ namespace BookMyHome.Infrastructure
             services.AddScoped<IHostQuery, HostQuery>();
             services.AddScoped<IHostRepository, HostRepository>();
 
+            services.AddScoped<IGuestRepository, GuestRepository>();
+
             services.AddScoped<IUnitOfWork, UnitOfWork<BookMyHomeContext>>();
 
             // Database

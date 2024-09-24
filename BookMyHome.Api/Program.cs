@@ -2,6 +2,7 @@ using BookMyHome.Application;
 using BookMyHome.Application.Command;
 using BookMyHome.Application.Command.CommandDto.Accommodation;
 using BookMyHome.Application.Command.CommandDto.Booking;
+using BookMyHome.Application.Command.CommandDto.Guest;
 using BookMyHome.Application.Command.CommandDto.Host;
 using BookMyHome.Application.Command.Interfaces;
 using BookMyHome.Application.Query;
@@ -58,5 +59,8 @@ app.MapPost("/accommodation", (CreateAccommodationDto accommodation, IAccommodat
 //app.MapGet("/host/{id}", (int id, IHostQuery query) => query.GetHost(id));
 app.MapGet("/host/{id}/accommodation", (int id, IHostQuery query) => query.GetAccommodations(id));
 app.MapPost("/host", (CreateHostDto host, IHostCommand command) => command.CreateHost(host));
+
+// Guest
+app.MapPost("/guest", (CreateGuestDto guest, IGuestCommand command) => command.CreateGuest(guest));
 
 app.Run();

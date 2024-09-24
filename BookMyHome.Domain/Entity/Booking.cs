@@ -20,7 +20,7 @@ public class Booking : DomainEntity
 
     public DateOnly StartDate { get; protected set; }
     public DateOnly EndDate { get; protected set; }
-
+    public Review? Review { get; protected set; }
 
     protected void StartDateBeforeEndDate()
     {
@@ -52,6 +52,9 @@ public class Booking : DomainEntity
     /// <param name="accommodation"></param>
     /// <param name="bookingDomainService"></param>
     /// <returns></returns>
+    
+
+
     public static Booking Create(DateOnly startDate, DateOnly endDate, IEnumerable<Booking> existingBookings)
     {
         return new Booking(startDate, endDate, existingBookings);
@@ -66,5 +69,19 @@ public class Booking : DomainEntity
         StartDateBeforeEndDate();
         StartDateInFuture(DateOnly.FromDateTime(DateTime.Now));
         IsOverlapping(existingBookings);
+    }
+
+    // Review
+
+    protected void IsReviewable(Review review)
+    {
+        if (EndDate > review.Date)
+            throw new ArgumentException("EndDate skal være i fortiden");
+    }
+
+    public void AddReview(Review review)
+    {
+        IsReviewable(review);
+        Review = review;
     }
 }
