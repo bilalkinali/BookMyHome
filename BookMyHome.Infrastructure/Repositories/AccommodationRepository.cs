@@ -26,13 +26,13 @@ public class AccommodationRepository : IAccommodationRepository
             .Single(a => a.Id == id);
     }
 
-    Accommodation IAccommodationRepository.GetAccommodationWithBookingId(int id)
-    {
-        return _db.Accommodations
-            .Where(a => a.Bookings
-                .Any(b => b.Id == 1))
-            .First();
-    }
+    //Accommodation IAccommodationRepository.GetAccommodationWithBookingId(int id)
+    //{
+    //    return _db.Accommodations
+    //        .Where(a => a.Bookings
+    //            .Any(b => b.Id == 1))
+    //        .First();
+    //}
 
     void IAccommodationRepository.Update(Accommodation accommodation, byte[] rowVersion)
     {

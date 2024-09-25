@@ -196,12 +196,12 @@ namespace BookMyHome.Application.Command
             }
         }
 
-        void IAccommodationCommand.AddReview(CreateReviewDto createReviewDto)
+        void IAccommodationCommand.AddReview(int accommodationId, int bookingId, CreateReviewDto createReviewDto)
         {
             // Load
-            var accommodation = _repository.GetAccommodationWithBookingId(createReviewDto.BookingId);
+            var accommodation = _repository.GetAccommodation(accommodationId);
             // Do
-            var booking = accommodation.Bookings.Single(b => b.Id == createReviewDto.BookingId);
+            var booking = accommodation.Bookings.Single(b => b.Id == bookingId);
             booking.AddReview(createReviewDto.Rating, createReviewDto.Comment, createReviewDto.Date , createReviewDto.BookingId);
             // Save
             _repository.AddReview(booking);
