@@ -65,6 +65,6 @@ app.MapPost("/guest", (CreateGuestDto guest, IGuestCommand command) => command.C
 
 // Review
 app.MapPost("/accommodation/{accommodationId}/booking/{bookingId}/review",
-    (CreateReviewDto createReviewDto, IAccommodationCommand command) => command.AddReview(createReviewDto));
+    (int accommodationId, int bookingId, CreateReviewDto createReviewDto, IAccommodationCommand command) => command.AddReview(accommodationId, bookingId, createReviewDto));
 
 app.Run();
