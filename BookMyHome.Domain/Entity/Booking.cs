@@ -73,16 +73,9 @@ public class Booking : DomainEntity
 
     // Review
 
-    protected void IsReviewable(DateOnly date)
+    public void AddReview(double rating, string comment)
     {
-        if (EndDate > date)
-            throw new ArgumentException("EndDate skal være i fortiden");
-    }
-
-    public void AddReview(double rating, string comment, DateOnly date, int bookingId)
-    {
-        IsReviewable(date);
-        var test = Review.Create(rating, comment, bookingId);
-        Review = test;
+        var review = Review.Create(rating, comment, StartDate);
+        Review = review;
     }
 }

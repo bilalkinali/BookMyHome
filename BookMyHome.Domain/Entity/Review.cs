@@ -8,19 +8,25 @@
         public double Rating { get; protected set; }
         public string? Comment { get; protected set; }
         public DateOnly Date { get; protected set; }
-        public int BookingId { get; protected set; }
 
-        private Review(double rating, string comment, int bookingId)
+        private Review(double rating, string comment, DateOnly bookingStartDate)
         {
             Rating = rating;
             Comment = comment;
             Date = DateOnly.FromDateTime(DateTime.Now);
-            BookingId = bookingId;
+
+            IsReviewable(bookingStartDate);
         }
 
-        public static Review Create(double rating, string comment, int bookingId)
+        public static Review Create(double rating, string comment, DateOnly bookingStartDate)
         {
-            return new Review(rating, comment, bookingId);
+            return new Review(rating, comment, bookingStartDate);
+        }
+
+        private void IsReviewable(DateOnly bookingStartDate)
+        {
+            if (bookingStartDate > Date)
+                throw new ArgumentException("BookingStartDate skal være i fortiden");
         }
     }
 

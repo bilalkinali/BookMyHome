@@ -53,12 +53,15 @@
             booking.Update(startDate, endDate, Bookings);
             return booking;
         }
+        
+        // Review
 
-        public void AddReview(double rating, string comment, int bookingId)
+        public Booking AddReview(int bookingId, double rating, string comment)
         {
             var booking = Bookings.FirstOrDefault(b => b.Id == bookingId);
             if (booking == null) throw new ArgumentException("Booking not found");
-            booking.AddReview(rating, comment, DateOnly.FromDateTime(DateTime.Now), bookingId);
+            booking.AddReview(rating, comment);
+            return booking;
         }
     }
 }
