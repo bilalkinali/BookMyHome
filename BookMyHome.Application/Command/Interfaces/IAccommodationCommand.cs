@@ -12,6 +12,6 @@ namespace BookMyHome.Application.Command.Interfaces
         void CreateBooking(CreateBookingDto bookingDto);
         void UpdateBooking(UpdateBookingDto updateBookingDto);
         void DeleteBooking(DeleteBookingDto deleteBookingDto);
-        void AddReview(int accommodationId, int bookingId, CreateReviewDto createReviewDto);
+        void AddReview(CreateReviewDto createReviewDto);
     }
 }
