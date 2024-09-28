@@ -118,7 +118,7 @@ namespace BookMyHome.Application.Command
                 // Load
                 Accommodation accommodation = _repository.GetAccommodation(bookingDto.AccommodationId);
                 // Do
-                accommodation.CreateBooking(bookingDto.StartDate, bookingDto.EndDate);
+                accommodation.CreateBooking(bookingDto.StartDate, bookingDto.EndDate, bookingDto.GuestId);
                 // Save
                 _repository.AddBooking(accommodation);
 
@@ -201,9 +201,9 @@ namespace BookMyHome.Application.Command
             // Load
             var accommodation = _repository.GetAccommodation(createReviewDto.AccommodationId);
             // Do
-            var booking = accommodation.AddReview(createReviewDto.BookingId, createReviewDto.Rating, createReviewDto.Comment);
+            accommodation.CreateReview(createReviewDto.BookingId, createReviewDto.Rating, createReviewDto.Comment);
             // Save
-            _repository.AddReview(booking);
+            _repository.AddReview(accommodation);
         }
     }
 }
