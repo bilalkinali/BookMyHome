@@ -64,6 +64,7 @@ app.MapPost("/host", (CreateHostDto host, IHostCommand command) => command.Creat
 app.MapPost("/guest", (CreateGuestDto guest, IGuestCommand command) => command.CreateGuest(guest));
 
 // Review
-app.MapPost("/accommodation/booking/review", (CreateReviewDto createReviewDto, IAccommodationCommand command) => command.AddReview(createReviewDto));
+app.MapGet("/host/{id}/accommodation/review", (int id, IHostQuery query) => query.GetReviews(id));
+app.MapPost("/accommodation/review", (CreateReviewDto createReviewDto, IAccommodationCommand command) => command.AddReview(createReviewDto));
 
 app.Run();
