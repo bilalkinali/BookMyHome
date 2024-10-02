@@ -212,10 +212,10 @@ namespace BookMyHome.Application.Command
 
                 _unitOfWork.Commit();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 _unitOfWork.Rollback();
-                throw;
+                throw new Exception($"Rollback failed: {ex.Message}", ex);
             }
         }
     }
