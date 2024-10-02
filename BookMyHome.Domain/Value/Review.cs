@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BookMyHome.Domain.Entity
+namespace BookMyHome.Domain.Value
 {
     [ComplexType]
     public record Review
     {
-        protected Review() {}
+        protected Review() { }
         public double Rating { get; private set; }
         public string? Comment { get; private set; }
         public DateOnly Date { get; }
@@ -17,10 +17,10 @@ namespace BookMyHome.Domain.Entity
             Date = DateOnly.FromDateTime(DateTime.Now);
         }
 
-        public static Review Create(double rating, string comment)
-        {
-            return new Review(rating, comment);
-        }
+        //public static Review Create(double rating, string comment)
+        //{
+        //    return new Review(rating, comment);
+        //}
 
         //private void IsReviewable(DateOnly bookingStartDate)
         //{
@@ -29,5 +29,5 @@ namespace BookMyHome.Domain.Entity
         //}
     }
 
-    
+
 }

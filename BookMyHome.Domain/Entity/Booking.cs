@@ -1,4 +1,6 @@
-﻿namespace BookMyHome.Domain.Entity;
+﻿using BookMyHome.Domain.Value;
+
+namespace BookMyHome.Domain.Entity;
 
 public class Booking : DomainEntity
 {
