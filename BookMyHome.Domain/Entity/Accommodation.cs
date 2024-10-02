@@ -56,11 +56,11 @@
         
         // Review
 
-        public Booking AddReview(int bookingId, double rating, string comment)
+        public Booking AddReview(int bookingId, Review review)
         {
             var booking = Bookings.FirstOrDefault(b => b.Id == bookingId);
             if (booking == null) throw new ArgumentException("Booking not found");
-            booking.AddReview(rating, comment);
+            booking.AddReview(review);
             return booking;
         }
     }

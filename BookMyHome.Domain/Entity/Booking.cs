@@ -73,9 +73,8 @@ public class Booking : DomainEntity
 
     // Review
 
-    public void AddReview(double rating, string comment)
+    public void AddReview(Review review)
     {
-        var review = Review.Create(rating, comment, StartDate);
         Review = review;
     }
 }

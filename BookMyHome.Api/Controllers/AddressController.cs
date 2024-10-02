@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using BookMyHome.Infrastructure.ServiceAPI;
 
-namespace BookMyHome.Api
+namespace BookMyHome.Api.Controllers
 {
-    public class Controller : ControllerBase
+    public class AddressController : ControllerBase
     {
         private readonly IAddressService _addressService;
 
-        public Controller(IAddressService addressService)
+        public AddressController(IAddressService addressService)
         {
             _addressService = addressService;
         }

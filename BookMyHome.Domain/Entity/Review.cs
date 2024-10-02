@@ -1,33 +1,32 @@
-﻿namespace BookMyHome.Domain.Entity
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace BookMyHome.Domain.Entity
 {
-    public class Review
+    [ComplexType]
+    public record Review
     {
-        public Review() {}
+        protected Review() {}
+        public double Rating { get; private set; }
+        public string? Comment { get; private set; }
+        public DateOnly Date { get; }
 
-        public int Id { get; protected set; }
-        public double Rating { get; protected set; }
-        public string? Comment { get; protected set; }
-        public DateOnly Date { get; protected set; }
-
-        private Review(double rating, string comment, DateOnly bookingStartDate)
+        public Review(double rating, string comment)
         {
             Rating = rating;
             Comment = comment;
             Date = DateOnly.FromDateTime(DateTime.Now);
-
-            IsReviewable(bookingStartDate);
         }
 
-        public static Review Create(double rating, string comment, DateOnly bookingStartDate)
+        public static Review Create(double rating, string comment)
         {
-            return new Review(rating, comment, bookingStartDate);
+            return new Review(rating, comment);
         }
 
-        private void IsReviewable(DateOnly bookingStartDate)
-        {
-            if (bookingStartDate > Date)
-                throw new ArgumentException("BookingStartDate skal være i fortiden");
-        }
+        //private void IsReviewable(DateOnly bookingStartDate)
+        //{
+        //    if (bookingStartDate > Date)
+        //        throw new ArgumentException("BookingStartDate skal være i fortiden");
+        //}
     }
 
     
