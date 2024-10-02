@@ -1,9 +1,11 @@
 ﻿using BookMyHome.Application.Command.CommandDto.Accommodation;
 using BookMyHome.Application.Command.CommandDto.Booking;
+using BookMyHome.Application.Command.CommandDto.Review;
 using BookMyHome.Application.Command.Interfaces;
 using BookMyHome.Application.Helpers;
 using BookMyHome.Application.RepositoryInterface;
 using BookMyHome.Domain.Entity;
+using BookMyHome.Domain.Value;
 
 namespace BookMyHome.Application.Command
 {
@@ -192,6 +194,28 @@ namespace BookMyHome.Application.Command
                     throw new Exception($"Rollback failed: {ex.Message}", ex);
                 }
                 throw;
+            }
+        }
+
+        void IAccommodationCommand.AddReview(CreateReviewDto createReviewDto)
+        {
+            try
+            {
+                _unitOfWork.BeginTransaction();
+
+                // Load
+                var accommodation = _repository.GetAccommodation(createReviewDto.AccommodationId);
+                // Do
+                var booking = accommodation.AddReview(createReviewDto.BokingId, new Review(createReviewDto.Rating, createReviewDto.Comment));
+                // Save
+                _repository.UpdateBooking(booking, createReviewDto.RowVersion);
+
+                _unitOfWork.Commit();
+            }
+            catch (Exception ex)
+            {
+                _unitOfWork.Rollback();
+                throw new Exception($"Rollback failed: {ex.Message}", ex);
             }
         }
     }

@@ -1,4 +1,6 @@
-﻿namespace BookMyHome.Domain.Entity
+﻿using BookMyHome.Domain.Value;
+
+namespace BookMyHome.Domain.Entity
 {
     public class Accommodation : DomainEntity
     {
@@ -26,6 +28,7 @@
         public void Update(double price)
         {
             Price = price;
+
             AssurePriceOverZero();
         }
 
@@ -50,6 +53,16 @@
             var booking = Bookings.FirstOrDefault(b => b.Id == bookingId);
             if (booking == null) throw new ArgumentException("Booking not found");
             booking.Update(startDate, endDate, Bookings);
+            return booking;
+        }
+        
+        // Review
+
+        public Booking AddReview(int bookingId, Review review)
+        {
+            var booking = Bookings.FirstOrDefault(b => b.Id == bookingId);
+            if (booking == null) throw new ArgumentException("Booking not found");
+            booking.AddReview(review);
             return booking;
         }
     }

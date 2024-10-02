@@ -10,6 +10,8 @@ public static class DependencyInjection
     {
         services.AddScoped<IAccommodationCommand, AccommodationCommand>();
         services.AddScoped<IHostCommand, HostCommand>();
+        services.AddScoped<IGuestCommand, GuestCommand>();
+
         return services;
     }
 }

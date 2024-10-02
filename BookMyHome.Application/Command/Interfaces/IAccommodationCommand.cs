@@ -1,5 +1,6 @@
 ﻿using BookMyHome.Application.Command.CommandDto.Accommodation;
 using BookMyHome.Application.Command.CommandDto.Booking;
+using BookMyHome.Application.Command.CommandDto.Review;
 
 namespace BookMyHome.Application.Command.Interfaces
 {
@@ -11,5 +12,6 @@ namespace BookMyHome.Application.Command.Interfaces
         void CreateBooking(CreateBookingDto bookingDto);
         void UpdateBooking(UpdateBookingDto updateBookingDto);
         void DeleteBooking(DeleteBookingDto deleteBookingDto);
+        void AddReview(CreateReviewDto createReviewDto);
     }
 }

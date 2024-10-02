@@ -4,6 +4,7 @@ using BookMyHome.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookMyHome.DatabaseMigration.Migrations
 {
     [DbContext(typeof(BookMyHomeContext))]
-    partial class BookMyHomeContextModelSnapshot : ModelSnapshot
+    [Migration("20240924165509_AddedReviews")]
+    partial class AddedReviews
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -63,9 +66,6 @@ namespace BookMyHome.DatabaseMigration.Migrations
                     b.Property<DateOnly>("EndDate")
                         .HasColumnType("date");
 
-                    b.Property<int?>("ReviewId")
-                        .HasColumnType("int");
-
                     b.Property<byte[]>("RowVersion")
                         .IsConcurrencyToken()
                         .IsRequired()
@@ -78,8 +78,6 @@ namespace BookMyHome.DatabaseMigration.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AccommodationId");
-
-                    b.HasIndex("ReviewId");
 
                     b.ToTable("Bookings");
                 });
@@ -130,6 +128,9 @@ namespace BookMyHome.DatabaseMigration.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("BookingId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Comment")
                         .HasColumnType("nvarchar(max)");
 
@@ -140,6 +141,9 @@ namespace BookMyHome.DatabaseMigration.Migrations
                         .HasColumnType("float");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BookingId")
+                        .IsUnique();
 
                     b.ToTable("Review");
                 });
@@ -160,17 +164,25 @@ namespace BookMyHome.DatabaseMigration.Migrations
                     b.HasOne("BookMyHome.Domain.Entity.Accommodation", null)
                         .WithMany("Bookings")
                         .HasForeignKey("AccommodationId");
+                });
 
-                    b.HasOne("BookMyHome.Domain.Entity.Review", "Review")
-                        .WithMany()
-                        .HasForeignKey("ReviewId");
-
-                    b.Navigation("Review");
+            modelBuilder.Entity("BookMyHome.Domain.Entity.Review", b =>
+                {
+                    b.HasOne("BookMyHome.Domain.Entity.Booking", null)
+                        .WithOne("Review")
+                        .HasForeignKey("BookMyHome.Domain.Entity.Review", "BookingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("BookMyHome.Domain.Entity.Accommodation", b =>
                 {
                     b.Navigation("Bookings");
+                });
+
+            modelBuilder.Entity("BookMyHome.Domain.Entity.Booking", b =>
+                {
+                    b.Navigation("Review");
                 });
 
             modelBuilder.Entity("BookMyHome.Domain.Entity.Host", b =>

@@ -10,5 +10,6 @@ namespace BookMyHome.Infrastructure
         public DbSet<Booking> Bookings { get; set; }
         public DbSet<Host> Hosts { get; set; }
         public DbSet<Accommodation> Accommodations { get; set; }
+        public DbSet<Guest> Guests { get; set; }
     }
 }
