@@ -57,14 +57,14 @@ app.MapPost("/accommodation", (CreateAccommodationDto accommodation, IAccommodat
 // Host
 //app.MapGet("/host", (IHostQuery query) => query.GetHosts());
 //app.MapGet("/host/{id}", (int id, IHostQuery query) => query.GetHost(id));
-app.MapGet("/host/{id}/accommodation", (int id, IHostQuery query) => query.GetAccommodations(id));
+//app.MapGet("/host/{id}/accommodation", (int id, IHostQuery query) => query.GetAccommodations(id));
 app.MapPost("/host", (CreateHostDto host, IHostCommand command) => command.CreateHost(host));
 
 // Guest
 app.MapPost("/guest", (CreateGuestDto guest, IGuestCommand command) => command.CreateGuest(guest)); 
 
 // Review
-app.MapGet("/host/{id}/accommodation/review", (int id, IHostQuery query) => query.GetReviews(id));
+//app.MapGet("/host/{id}/accommodation/review", (int id, IHostQuery query) => query.GetReviews(id));
 app.MapPost("/accommodation/review", (CreateReviewDto createReviewDto, IAccommodationCommand command) => command.AddReview(createReviewDto));
 
 app.Run();
