@@ -7,10 +7,8 @@ namespace BookMyHome.Domain.Entity
         public double Price { get; protected set; }
         public Host Host { get; protected set; }
         public IReadOnlyCollection<Booking> Bookings => _bookings;
-        public IReadOnlyCollection<Review> Reviews => _reviews;
 
         private readonly List<Booking> _bookings = new List<Booking>();
-        private readonly List<Review> _reviews = new List<Review>();
 
         protected Accommodation () {}
 

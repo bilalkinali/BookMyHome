@@ -1,0 +1,52 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressServiceDAWA.Api", "AddressServiceDAWA.Api\AddressServiceDAWA.Api.csproj", "{3A18D08E-E463-4227-8267-1F1A35A9634D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressServiceDAWA.Application", "AddressServiceDAWA.Application\AddressServiceDAWA.Application.csproj", "{012EBB3D-AAC1-4644-9FC0-96B172506947}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressServiceDAWA.Domain", "AddressServiceDAWA.Domain\AddressServiceDAWA.Domain.csproj", "{18EE73F8-603A-44F6-ACA7-B4B3004B5335}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressServiceDAWA.Domain.Test", "AddressServiceDAWA.Domain.Test\AddressServiceDAWA.Domain.Test.csproj", "{5728DDFA-1476-4B2E-928C-BBC057511BA2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressServiceDAWA.Infrastructure", "AddressServiceDAWA.Infrastructure\AddressServiceDAWA.Infrastructure.csproj", "{F085E2D7-A94C-4EBC-BF6E-3980D2E1BD32}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AddressServiceDAWA.DatabaseMigration", "AddressServiceDAWA.DatabaseMigration\AddressServiceDAWA.DatabaseMigration.csproj", "{78CF2EA9-D82E-4653-9338-1B6C4F6C6D1C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3A18D08E-E463-4227-8267-1F1A35A9634D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3A18D08E-E463-4227-8267-1F1A35A9634D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3A18D08E-E463-4227-8267-1F1A35A9634D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3A18D08E-E463-4227-8267-1F1A35A9634D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{012EBB3D-AAC1-4644-9FC0-96B172506947}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{012EBB3D-AAC1-4644-9FC0-96B172506947}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{012EBB3D-AAC1-4644-9FC0-96B172506947}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{012EBB3D-AAC1-4644-9FC0-96B172506947}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18EE73F8-603A-44F6-ACA7-B4B3004B5335}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18EE73F8-603A-44F6-ACA7-B4B3004B5335}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18EE73F8-603A-44F6-ACA7-B4B3004B5335}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18EE73F8-603A-44F6-ACA7-B4B3004B5335}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5728DDFA-1476-4B2E-928C-BBC057511BA2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5728DDFA-1476-4B2E-928C-BBC057511BA2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5728DDFA-1476-4B2E-928C-BBC057511BA2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5728DDFA-1476-4B2E-928C-BBC057511BA2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F085E2D7-A94C-4EBC-BF6E-3980D2E1BD32}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F085E2D7-A94C-4EBC-BF6E-3980D2E1BD32}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F085E2D7-A94C-4EBC-BF6E-3980D2E1BD32}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F085E2D7-A94C-4EBC-BF6E-3980D2E1BD32}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78CF2EA9-D82E-4653-9338-1B6C4F6C6D1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78CF2EA9-D82E-4653-9338-1B6C4F6C6D1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78CF2EA9-D82E-4653-9338-1B6C4F6C6D1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78CF2EA9-D82E-4653-9338-1B6C4F6C6D1C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

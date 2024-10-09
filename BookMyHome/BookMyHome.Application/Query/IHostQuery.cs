@@ -6,7 +6,7 @@ namespace BookMyHome.Application.Query
     {
         //HostDto GetHost(int id);
         //IEnumerable<HostDto> GetHosts();
-        HostDto? GetAccommodations(int hostId);
-        HostDto? GetReviews(int hostId);
+        //HostDto? GetAccommodations(int hostId);
+        //HostDto? GetReviews(int hostId);
     }
 }

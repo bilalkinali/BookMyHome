@@ -1,0 +1,6 @@
+@AddressServiceDAWA.Api_HostAddress = http://localhost:5237
+
+GET {{AddressServiceDAWA.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
