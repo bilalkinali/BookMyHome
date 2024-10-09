@@ -32,7 +32,6 @@ public record Address : ValueBase
         var dawaService = serviceProvider.GetRequiredService<IValidateAddressDomainService>();
         var dawaValidationRespose = dawaService.ValidateAddress(street, building, city);
         return new Address(street, building, zipCode, city, dawaValidationRespose);
-        return new();
     }
 }
 
