@@ -1,4 +1,4 @@
-﻿//using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 using BookMyHome.Domain.DomainServiceInterface;
 
 namespace BookMyHome.Domain.Values;
@@ -29,9 +29,9 @@ public record Address : ValueBase
 
     public static Address Create(string street, string building, string zipCode, string city, IServiceProvider serviceProvider)
     {
-        //var dawaService = serviceProvider.GetRequiredService<IValidateAddressDomainService>();
-        //var dawaValidationRespose = dawaService.ValidateAddress(street, building, city);
-        //return new Address(street, building, zipCode, city, dawaValidationRespose);
+        var dawaService = serviceProvider.GetRequiredService<IValidateAddressDomainService>();
+        var dawaValidationRespose = dawaService.ValidateAddress(street, building, city);
+        return new Address(street, building, zipCode, city, dawaValidationRespose);
         return new();
     }
 }
