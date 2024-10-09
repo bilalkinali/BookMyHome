@@ -1,4 +1,6 @@
-﻿namespace BookMyHome.Domain.Entity;
+﻿using BookMyHome.Domain.Value;
+
+namespace BookMyHome.Domain.Entity;
 
 public class Booking : DomainEntity
 {
@@ -73,10 +75,8 @@ public class Booking : DomainEntity
     }
 
     // Review
-
-    public Review CreateReview(double rating, string comment)
+    public void AddReview(Review review)
     {
-        var review = Review.Create(rating, comment, StartDate);
-        return review;
+        Review = review;
     }
 }

@@ -1,10 +1,4 @@
 ﻿namespace BookMyHome.Application.Command.CommandDto.Review
 {
-    public record CreateReviewDto
-    {
-        public double Rating { get; set; }
-        public string Comment { get; set; }
-        public int AccommodationId { get; set; }
-        public int BookingId { get; set; }
-    }
+    public record CreateReviewDto(int AccommodationId, int BokingId, string Comment, int Rating, byte[] RowVersion = null!);
 }
