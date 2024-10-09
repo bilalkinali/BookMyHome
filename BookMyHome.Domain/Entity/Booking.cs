@@ -23,6 +23,7 @@ public class Booking : DomainEntity
 
     public DateOnly StartDate { get; protected set; }
     public DateOnly EndDate { get; protected set; }
+    public Review Review { get; protected set; } = null!;
     public int GuestId { get; protected set; }
     
 
@@ -74,7 +75,6 @@ public class Booking : DomainEntity
         IsOverlapping(existingBookings);
     }
 
-    // Review
     public void AddReview(Review review)
     {
         Review = review;
