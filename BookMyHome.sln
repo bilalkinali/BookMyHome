@@ -15,13 +15,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookMyHome.Infrastructure",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BookMyHome.DatabaseMigration", "BookMyHome.DatabaseMigration\BookMyHome.DatabaseMigration.csproj", "{07845F33-51B2-4F53-975E-C8BBC49F28BE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BookMyHome", "BookMyHome", "{D8500A5D-01FD-4552-BDAC-E2FA6ED4436E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AddressServiceDAWA", "AddressServiceDAWA", "{1D148B5C-F201-478C-9BD7-EF30EBA4D817}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{F15058DF-E420-4AF3-93E7-CDBE15A6BE3F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -48,5 +49,19 @@ Global
 		{07845F33-51B2-4F53-975E-C8BBC49F28BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{07845F33-51B2-4F53-975E-C8BBC49F28BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{07845F33-51B2-4F53-975E-C8BBC49F28BE}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F15058DF-E420-4AF3-93E7-CDBE15A6BE3F} = {D8500A5D-01FD-4552-BDAC-E2FA6ED4436E}
+		{BF9BD4C6-48CE-4F8F-8372-81DCF422DA74} = {D8500A5D-01FD-4552-BDAC-E2FA6ED4436E}
+		{A2479E73-E6F7-4B59-94E3-31E156272CA0} = {D8500A5D-01FD-4552-BDAC-E2FA6ED4436E}
+		{7B44F7A7-328D-43DF-838B-8EE8A6FBA346} = {D8500A5D-01FD-4552-BDAC-E2FA6ED4436E}
+		{82B557EA-335B-4144-A302-77A1B54608D8} = {D8500A5D-01FD-4552-BDAC-E2FA6ED4436E}
+		{07845F33-51B2-4F53-975E-C8BBC49F28BE} = {D8500A5D-01FD-4552-BDAC-E2FA6ED4436E}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2BBCB996-C9CF-4599-8200-BC88B88988A9}
 	EndGlobalSection
 EndGlobal
