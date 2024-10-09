@@ -61,7 +61,7 @@ app.MapGet("/host/{id}/accommodation", (int id, IHostQuery query) => query.GetAc
 app.MapPost("/host", (CreateHostDto host, IHostCommand command) => command.CreateHost(host));
 
 // Guest
-app.MapPost("/guest", (CreateGuestDto guest, IGuestCommand command) => command.CreateGuest(guest));
+app.MapPost("/guest", (CreateGuestDto guest, IGuestCommand command) => command.CreateGuest(guest)); 
 
 // Review
 app.MapGet("/host/{id}/accommodation/review", (int id, IHostQuery query) => query.GetReviews(id));
