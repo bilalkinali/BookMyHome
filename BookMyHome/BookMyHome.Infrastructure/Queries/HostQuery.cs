@@ -13,35 +13,34 @@ internal class HostQuery : IHostQuery
         _db = db;
     }
 
-    //HostDto? IHostQuery.GetAccommodations(int hostId)
-    //{
-    //    var host = _db.Hosts
-    //        //.AsNoTracking()? // ?
-    //        .Include(a => a.Accommodations)
-    //            .ThenInclude(b => b.Bookings)
-    //        .FirstOrDefault(h => h.Id == hostId);
+    HostDto? IHostQuery.GetAccommodations(int hostId)
+    {
+        var host = _db.Hosts
+            //.AsNoTracking()? // ?
+            .Include(a => a.Accommodations)
+                .ThenInclude(b => b.Bookings)
+            .FirstOrDefault(h => h.Id == hostId);
 
-    //    if (host == null) return null;
+        if (host == null) return null;
 
-    //    return new HostDto
-    //    {
-    //        Id = host.Id,
-    //        Accommodations = host.Accommodations.Select(a => new AccommodationDto
-    //        {
-    //            Id = a.Id, // protected get; -> doesn't show in JSON
-    //            Price = a.Price,
-    //            HostId = a.Host.Id,
-    //            Bookings = a.Bookings.Select(b => new BookingDto
-    //            {
-    //                Id = b.Id,
-    //                StartDate = b.StartDate,
-    //                EndDate = b.EndDate,
-    //                AccommodationId = a.Id, // Remove?
-    //                RowVersion = b.RowVersion
-    //            })
-    //        })
-    //    };
-    //}
+        return new HostDto
+        {
+            Id = host.Id,
+            Accommodations = host.Accommodations.Select(a => new AccommodationDto
+            {
+                Id = a.Id, // protected get; -> doesn't show in JSON
+                HostId = a.Host.Id,
+                Bookings = a.Bookings.Select(b => new BookingDto
+                {
+                    Id = b.Id,
+                    StartDate = b.StartDate,
+                    EndDate = b.EndDate,
+                    AccommodationId = a.Id, // Remove?
+                    RowVersion = b.RowVersion
+                })
+            })
+        };
+    }
 
     //HostDto? IHostQuery.GetReviews(int hostId)
     //{

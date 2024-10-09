@@ -1,4 +1,4 @@
-﻿using BookMyHome.Domain.Value;
+﻿using BookMyHome.Domain.Values;
 
 namespace BookMyHome.Domain.Entity;
 

@@ -1,4 +1,5 @@
-﻿using BookMyHome.Application.Query;
+﻿using System.Diagnostics;
+using BookMyHome.Application.Query;
 using BookMyHome.Infrastructure.Queries;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -6,6 +7,9 @@ using Microsoft.EntityFrameworkCore;
 using BookMyHome.Application.Helpers;
 using BookMyHome.Infrastructure.Repositories;
 using BookMyHome.Application.RepositoryInterface;
+using BookMyHome.Domain.DomainServiceInterface;
+using BookMyHome.Infrastructure.ExternalServices;
+using BookMyHome.Infrastructure.ExternalServices.ServiceProxyImpl;
 
 namespace BookMyHome.Infrastructure
 {
@@ -14,15 +18,20 @@ namespace BookMyHome.Infrastructure
         public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddScoped<IBookingQuery, BookingQuery>();
-
             services.AddScoped<IAccommodationRepository, AccommodationRepository>();
-
             services.AddScoped<IHostQuery, HostQuery>();
             services.AddScoped<IHostRepository, HostRepository>();
-
             services.AddScoped<IGuestRepository, GuestRepository>();
-
             services.AddScoped<IUnitOfWork, UnitOfWork<BookMyHomeContext>>();
+            services.AddScoped<IValidateAddressDomainService, ValidateAddressDomainService>();
+
+            // External services
+            services.AddHttpClient<IAddressServiceProxy, AddressServiceProxy>(client =>
+            {
+                var uri = configuration.GetSection("ExternalServices:AddressService:Uri").Value;
+                Debug.Assert(String.Empty != null, "String.Empty != null");
+                client.BaseAddress = new Uri(uri ?? string.Empty);
+            });
 
             // Database
             // https://github.com/dotnet/SqlClient/issues/2239

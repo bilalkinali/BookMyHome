@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace BookMyHome.Domain.Entity;
+namespace BookMyHome.Domain;
 
 public abstract class DomainEntity
 {

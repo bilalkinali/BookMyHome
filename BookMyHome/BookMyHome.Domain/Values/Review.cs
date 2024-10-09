@@ -1,9 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace BookMyHome.Domain.Value
+﻿namespace BookMyHome.Domain.Values
 {
-    [ComplexType]
-    public record Review
+    public record Review : ValueBase
     {
         protected Review() { }
         public double Rating { get; private set; }

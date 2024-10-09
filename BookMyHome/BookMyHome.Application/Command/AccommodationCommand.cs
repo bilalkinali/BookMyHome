@@ -5,7 +5,7 @@ using BookMyHome.Application.Command.Interfaces;
 using BookMyHome.Application.Helpers;
 using BookMyHome.Application.RepositoryInterface;
 using BookMyHome.Domain.Entity;
-using BookMyHome.Domain.Value;
+using BookMyHome.Domain.Values;
 
 namespace BookMyHome.Application.Command
 {
@@ -13,12 +13,14 @@ namespace BookMyHome.Application.Command
     {
         // Fix
         private readonly IAccommodationRepository _repository;
+        private readonly IServiceProvider _serviceProvider;
         private readonly IHostRepository _hostRepository;
         private readonly IUnitOfWork _unitOfWork;
 
-        public AccommodationCommand(IAccommodationRepository accommodationRepository, IHostRepository hostRepository, IUnitOfWork unitOfWork)
+        public AccommodationCommand(IAccommodationRepository accommodationRepository, IServiceProvider serviceProvider, IHostRepository hostRepository, IUnitOfWork unitOfWork)
         {
             _repository = accommodationRepository;
+            _serviceProvider = serviceProvider;
             _hostRepository = hostRepository;
             _unitOfWork = unitOfWork;
         }
@@ -32,7 +34,8 @@ namespace BookMyHome.Application.Command
                 _unitOfWork.BeginTransaction(); // Transaction for phantom read
 
                 // Do
-                var accommodation = Accommodation.Create(createAccommodationDto.Price, host);
+                var address = Address.Create(createAccommodationDto.Street, createAccommodationDto.Building, createAccommodationDto.ZipCode, createAccommodationDto.City, _serviceProvider);
+                var accommodation = Accommodation.Create(host, address);
                 // Save
                 _repository.Add(accommodation);
 

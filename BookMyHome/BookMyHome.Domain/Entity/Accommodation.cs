@@ -1,43 +1,31 @@
-﻿using BookMyHome.Domain.Value;
+﻿using BookMyHome.Domain.Values;
 
 namespace BookMyHome.Domain.Entity
 {
     public class Accommodation : DomainEntity
     {
-        public double Price { get; protected set; }
         public Host Host { get; protected set; }
+        public Address Address { get; protected set; }
         public IReadOnlyCollection<Booking> Bookings => _bookings;
 
         private readonly List<Booking> _bookings = new List<Booking>();
 
         protected Accommodation () {}
 
-        protected Accommodation(double price, Host host)
+        protected Accommodation(Host host, Address address)
         {
-            Price = price;
             Host = host;
-
-            AssurePriceOverZero();
+            Address = address;
         }
 
-        public static Accommodation Create(double price, Host host)
+        public static Accommodation Create(Host host, Address address)
         {
-            return new Accommodation(price, host);
+            return new Accommodation(host, address);
         }
 
         public void Update(double price)
         {
-            Price = price;
 
-            AssurePriceOverZero();
-        }
-
-        protected void AssurePriceOverZero()
-        {
-            if (!(Price > 0))
-            {
-                throw new ArgumentException("Prisen skal være over 0");
-            }
         }
 
         // Booking
