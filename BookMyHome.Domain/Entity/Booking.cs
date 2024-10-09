@@ -8,10 +8,11 @@ public class Booking : DomainEntity
     {
     }
 
-    private Booking(DateOnly startDate, DateOnly endDate, IEnumerable<Booking> existingBookings)
+    private Booking(DateOnly startDate, DateOnly endDate, IEnumerable<Booking> existingBookings, int guestId)
     {
         StartDate = startDate;
         EndDate = endDate;
+        GuestId = guestId;
 
         StartDateBeforeEndDate();
 
@@ -22,7 +23,8 @@ public class Booking : DomainEntity
 
     public DateOnly StartDate { get; protected set; }
     public DateOnly EndDate { get; protected set; }
-    public Review? Review { get; protected set; }
+    public int GuestId { get; protected set; }
+    
 
     protected void StartDateBeforeEndDate()
     {
@@ -52,14 +54,13 @@ public class Booking : DomainEntity
     /// <param name="startDate"></param>
     /// <param name="endDate"></param>
     /// <param name="accommodation"></param>
-    /// <param name="bookingDomainService"></param>
     /// <returns></returns>
     
 
 
-    public static Booking Create(DateOnly startDate, DateOnly endDate, IEnumerable<Booking> existingBookings)
+    public static Booking Create(DateOnly startDate, DateOnly endDate, IEnumerable<Booking> existingBookings, int guestId)
     {
-        return new Booking(startDate, endDate, existingBookings);
+        return new Booking(startDate, endDate, existingBookings, guestId);
     }
 
     public void Update(DateOnly startDate, DateOnly endDate, IEnumerable<Booking> existingBookings)
@@ -74,7 +75,6 @@ public class Booking : DomainEntity
     }
 
     // Review
-
     public void AddReview(Review review)
     {
         Review = review;

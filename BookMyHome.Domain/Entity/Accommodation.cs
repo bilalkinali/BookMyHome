@@ -7,8 +7,10 @@ namespace BookMyHome.Domain.Entity
         public double Price { get; protected set; }
         public Host Host { get; protected set; }
         public IReadOnlyCollection<Booking> Bookings => _bookings;
+        public IReadOnlyCollection<Review> Reviews => _reviews;
 
         private readonly List<Booking> _bookings = new List<Booking>();
+        private readonly List<Review> _reviews = new List<Review>();
 
         protected Accommodation () {}
 
@@ -42,9 +44,9 @@ namespace BookMyHome.Domain.Entity
 
         // Booking
 
-        public void CreateBooking(DateOnly startDate, DateOnly endDate)
+        public void CreateBooking(DateOnly startDate, DateOnly endDate, int guestId)
         {
-            var booking = Booking.Create(startDate, endDate, Bookings);
+            var booking = Booking.Create(startDate, endDate, Bookings, guestId);
             _bookings.Add(booking);
         }
 
@@ -55,9 +57,8 @@ namespace BookMyHome.Domain.Entity
             booking.Update(startDate, endDate, Bookings);
             return booking;
         }
-        
-        // Review
 
+        // Review
         public Booking AddReview(int bookingId, Review review)
         {
             var booking = Bookings.FirstOrDefault(b => b.Id == bookingId);

@@ -18,7 +18,7 @@ internal class HostQuery : IHostQuery
         var host = _db.Hosts
             //.AsNoTracking()? // ?
             .Include(a => a.Accommodations)
-            .ThenInclude(b => b.Bookings)
+                .ThenInclude(b => b.Bookings)
             .FirstOrDefault(h => h.Id == hostId);
 
         if (host == null) return null;
@@ -38,6 +38,34 @@ internal class HostQuery : IHostQuery
                     EndDate = b.EndDate,
                     AccommodationId = a.Id, // Remove?
                     RowVersion = b.RowVersion
+                })
+            })
+        };
+    }
+
+    HostDto? IHostQuery.GetReviews(int hostId)
+    {
+        var host = _db.Hosts
+            .Include(h => h.Accommodations)
+                .ThenInclude(a => a.Reviews)
+            .FirstOrDefault(h => h.Id == hostId);
+
+        if (host == null) return null;
+
+        return new HostDto
+        {
+            Id = host.Id,
+            Accommodations = host.Accommodations.Select(a => new AccommodationDto
+            {
+                Id = a.Id,
+                Price = a.Price,
+                HostId = a.Host.Id,
+                Reviews = a.Reviews.Select(r => new ReviewDto
+                {
+                    Id = r.Id,
+                    Rating = r.Rating,
+                    Comment = r.Comment,
+                    Date = r.Date
                 })
             })
         };

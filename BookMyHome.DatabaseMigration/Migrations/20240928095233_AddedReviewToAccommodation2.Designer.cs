@@ -4,6 +4,7 @@ using BookMyHome.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BookMyHome.DatabaseMigration.Migrations
 {
     [DbContext(typeof(BookMyHomeContext))]
-    partial class BookMyHomeContextModelSnapshot : ModelSnapshot
+    [Migration("20240928095233_AddedReviewToAccommodation2")]
+    partial class AddedReviewToAccommodation2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -78,8 +81,6 @@ namespace BookMyHome.DatabaseMigration.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AccommodationId");
-
-                    b.HasIndex("GuestId");
 
                     b.ToTable("Bookings");
                 });
@@ -165,12 +166,6 @@ namespace BookMyHome.DatabaseMigration.Migrations
                     b.HasOne("BookMyHome.Domain.Entity.Accommodation", null)
                         .WithMany("Bookings")
                         .HasForeignKey("AccommodationId");
-
-                    b.HasOne("BookMyHome.Domain.Entity.Guest", null)
-                        .WithMany("Bookings")
-                        .HasForeignKey("GuestId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("BookMyHome.Domain.Entity.Review", b =>
@@ -185,11 +180,6 @@ namespace BookMyHome.DatabaseMigration.Migrations
                     b.Navigation("Bookings");
 
                     b.Navigation("Reviews");
-                });
-
-            modelBuilder.Entity("BookMyHome.Domain.Entity.Guest", b =>
-                {
-                    b.Navigation("Bookings");
                 });
 
             modelBuilder.Entity("BookMyHome.Domain.Entity.Host", b =>

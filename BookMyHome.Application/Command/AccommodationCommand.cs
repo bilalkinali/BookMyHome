@@ -119,7 +119,7 @@ namespace BookMyHome.Application.Command
                 // Load
                 Accommodation accommodation = _repository.GetAccommodation(bookingDto.AccommodationId);
                 // Do
-                accommodation.CreateBooking(bookingDto.StartDate, bookingDto.EndDate);
+                accommodation.CreateBooking(bookingDto.StartDate, bookingDto.EndDate, bookingDto.GuestId);
                 // Save
                 _repository.AddBooking(accommodation);
 

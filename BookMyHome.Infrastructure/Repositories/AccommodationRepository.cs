@@ -67,7 +67,7 @@ public class AccommodationRepository : IAccommodationRepository
         _db.SaveChanges();
     }
 
-    void IAccommodationRepository.AddReview(Booking booking)
+    void IAccommodationRepository.AddReview(Accommodation accommodation)
     {
         _db.SaveChanges();
     }

@@ -14,6 +14,6 @@ namespace BookMyHome.Application.RepositoryInterface
         void AddBooking(Accommodation accommodation);
         void UpdateBooking(Booking booking, byte[] rowVersion);
         void DeleteBooking(Booking booking, byte[] rowVersion);
-        void AddReview(Booking booking);
+        void AddReview(Accommodation accommodation);
     }
 }
