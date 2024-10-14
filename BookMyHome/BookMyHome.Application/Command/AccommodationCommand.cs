@@ -209,7 +209,7 @@ namespace BookMyHome.Application.Command
                 // Load
                 var accommodation = _repository.GetAccommodation(createReviewDto.AccommodationId);
                 // Do
-                var booking = accommodation.AddReview(createReviewDto.BokingId, new Review(createReviewDto.Rating, createReviewDto.Comment));
+                var booking = accommodation.AddReview(createReviewDto.BookingId, new Review(createReviewDto.Rating, createReviewDto.Comment));
                 // Save
                 _repository.UpdateBooking(booking, createReviewDto.RowVersion);
 

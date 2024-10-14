@@ -11,7 +11,7 @@ namespace BookMyHome.Infrastructure.ExternalServices
         {
             _addressService = addressService;
         }
-        AddressValidationResult IValidateAddressDomainService.ValidateAddress(string street, string city, string zipCode)
+        AddressValidationResult IValidateAddressDomainService.ValidateAddress(string street, string building, string zipCode, string city)
         {
             var result = _addressService.ValidateAddressAsync(street, city, zipCode).Result;
             return new AddressValidationResult(result.DawaId, Map(result.state));
