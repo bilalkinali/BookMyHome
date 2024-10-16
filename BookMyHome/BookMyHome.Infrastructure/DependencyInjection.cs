@@ -28,7 +28,7 @@ namespace BookMyHome.Infrastructure
             // External services
             services.AddHttpClient<IAddressServiceProxy, AddressServiceProxy>(client =>
             {
-                var uri = configuration.GetSection("ExternalServices:AddressService:Uri").Value;
+                var uri = configuration.GetSection("ExternalServices:AddressServiceDAWA:Uri").Value;
                 Debug.Assert(String.Empty != null, "String.Empty != null");
                 client.BaseAddress = new Uri(uri ?? string.Empty);
             });
