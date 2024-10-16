@@ -7,9 +7,9 @@ namespace AddressServiceDAWA.Api.Controllers
     [ApiController]
     public class AddressController : ControllerBase
     {
-        private readonly IAddressService _addressService;
+        private readonly IAddressServiceProxy _addressService;
 
-        public AddressController(IAddressService addressService)
+        public AddressController(IAddressServiceProxy addressService)
         {
             _addressService = addressService;
         }

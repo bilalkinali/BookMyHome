@@ -8,12 +8,13 @@ namespace BookMyHome.Application.RepositoryInterface
         Accommodation GetAccommodation(int id);
         //Accommodation GetAccommodationWithBookingId(int id);
         void Update(Accommodation accommodation, byte[] rowVersion);
+        void Update(Accommodation accommodation);
         void Delete(Accommodation accommodation, byte[] rowVersion);
 
         // Booking
         void AddBooking(Accommodation accommodation);
         void UpdateBooking(Booking booking, byte[] rowVersion);
         void DeleteBooking(Booking booking, byte[] rowVersion);
-        void AddReview(Accommodation accommodation);
+        Accommodation getAccommodationByDawaCorrelationId(Guid dawaCorrelationId);
     }
 }

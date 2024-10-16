@@ -40,6 +40,11 @@ public class AccommodationRepository : IAccommodationRepository
         _db.SaveChanges();
     }
 
+    void IAccommodationRepository.Update(Accommodation accommodation)
+    {
+        _db.SaveChanges();
+    }
+
     void IAccommodationRepository.Delete(Accommodation accommodation, byte[] rowVersion)
     {
         _db.Entry(accommodation).Property(nameof(accommodation.RowVersion)).OriginalValue = rowVersion;
@@ -67,8 +72,10 @@ public class AccommodationRepository : IAccommodationRepository
         _db.SaveChanges();
     }
 
-    void IAccommodationRepository.AddReview(Accommodation accommodation)
+    Accommodation IAccommodationRepository.getAccommodationByDawaCorrelationId(Guid dawaCorrelationId)
     {
-        _db.SaveChanges();
+        return _db.Accommodations
+            .Include(a => a.Bookings)
+            .First(a => a.Address.DawaCorrelationId == dawaCorrelationId);
     }
 }

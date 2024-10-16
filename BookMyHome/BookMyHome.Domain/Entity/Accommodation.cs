@@ -6,9 +6,9 @@ namespace BookMyHome.Domain.Entity
     {
         public Host Host { get; protected set; }
         public Address Address { get; protected set; }
-        public IReadOnlyCollection<Booking> Bookings => _bookings;
 
         private readonly List<Booking> _bookings = new List<Booking>();
+        public IReadOnlyCollection<Booking> Bookings => _bookings;
 
         protected Accommodation () {}
 
@@ -52,6 +52,11 @@ namespace BookMyHome.Domain.Entity
             booking.AddReview(review);
             return booking;
 
+        }
+
+        public void UpdateAddressState(AddressValidationState validationState)
+        {
+            Address.UpdateValidationState(validationState);
         }
     }
 }

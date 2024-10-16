@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using BookMyHome.Application.Helpers;
 using BookMyHome.Infrastructure.Repositories;
 using BookMyHome.Application.RepositoryInterface;
-using BookMyHome.Domain.DomainServiceInterface;
+using BookMyHome.Domain.DomainServices;
 using BookMyHome.Infrastructure.ExternalServices;
 using BookMyHome.Infrastructure.ExternalServices.ServiceProxyImpl;
 

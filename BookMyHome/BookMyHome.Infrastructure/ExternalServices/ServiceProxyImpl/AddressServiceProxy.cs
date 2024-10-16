@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Json;
+using BookMyHome.Application.Command.CommandDto.Accommodation;
 
 namespace BookMyHome.Infrastructure.ExternalServices.ServiceProxyImpl
 {
@@ -10,13 +11,14 @@ namespace BookMyHome.Infrastructure.ExternalServices.ServiceProxyImpl
         {
             _client = client;
         }
-        async Task<AddressValidationResultDto> IAddressServiceProxy.ValidateAddressAsync(string street, string building, string zipCode)
+        async Task<AddressValidationResultDto> IAddressServiceProxy.ValidateAddressAsync(Guid dawaCorrelationId, 
+            string street, string building, string zipCode, string city)
         {
-            var requestDto = new AddressValidationRequestDto(street, building, zipCode);
+            var requestDto = new AddressValidationRequestDto(dawaCorrelationId, street, building, zipCode, city);
             var response = await _client.PostAsJsonAsync("/Address", requestDto);
-            if (!response.IsSuccessStatusCode) return new AddressValidationResultDto(string.Empty, AddressValidationStateDto.Valid);
+            if (!response.IsSuccessStatusCode) return new AddressValidationResultDto(dawaCorrelationId,Guid.Empty, AddressValidationStateDto.Uncertain);
             var result = await response.Content.ReadFromJsonAsync<AddressValidationResultDto>();
-            return result ?? new AddressValidationResultDto(string.Empty, AddressValidationStateDto.Valid);
+            return result ?? new AddressValidationResultDto(dawaCorrelationId, Guid.Empty, AddressValidationStateDto.Uncertain);
         }
     }
 }

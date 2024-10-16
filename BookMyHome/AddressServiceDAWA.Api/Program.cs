@@ -1,3 +1,4 @@
+using AddressServiceDAWA.Infrastructure.ExternalServices.ServiceProxyImpl;
 using AddressServiceDAWA.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,7 +11,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
 
 // Configuration of HttpClient service
-builder.Services.AddHttpClient<IAddressService, AddressService>(client =>
+builder.Services.AddHttpClient<IAddressServiceProxy, DawaProxy>(client =>
 {
     client.BaseAddress = new Uri("https://api.dataforsyningen.dk/"); // URI in appsettings
     client.DefaultRequestHeaders.Add("Accept", "application/json");

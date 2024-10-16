@@ -221,5 +221,30 @@ namespace BookMyHome.Application.Command
                 throw new Exception($"Rollback failed: {ex.Message}", ex);
             }
         }
+
+        void IAccommodationCommand.HandleAddressUpdate(AddressValidatedEventDto request)
+        {
+            var accommodation = _repository.getAccommodationByDawaCorrelationId(request.DawaCorrelationId);
+            accommodation.UpdateAddressState(Map(request.ValidationState));
+            _repository.Update(accommodation);
+        }
+
+        private AddressValidationState Map(AddressValidationStateDto validationState)
+        {
+            switch (validationState)
+            {
+                case AddressValidationStateDto.Valid:
+                    return AddressValidationState.Valid;
+                case AddressValidationStateDto.Invalid:
+                    return AddressValidationState.Invalid;
+                case AddressValidationStateDto.Pending:
+                    return AddressValidationState.Pending;
+                case AddressValidationStateDto.Uncertain:
+                    return AddressValidationState.Uncertain;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(validationState), validationState, null);
+
+            }
+        }
     }
 }

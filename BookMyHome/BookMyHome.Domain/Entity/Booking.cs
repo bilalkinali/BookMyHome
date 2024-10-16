@@ -15,9 +15,7 @@ public class Booking : DomainEntity
         GuestId = guestId;
 
         StartDateBeforeEndDate();
-
         StartDateInFuture(DateOnly.FromDateTime(DateTime.Now));
-
         IsOverlapping(existingBookings);
     }
 
