@@ -1,5 +1,10 @@
-using AddressServiceDAWA.Infrastructure.ExternalServices.ServiceProxyImpl;
-using AddressServiceDAWA.Infrastructure.Services;
+using AddressServiceDAWA.Application;
+using AddressServiceDAWA.Application.Command;
+using AddressServiceDAWA.Application.Command.CommandDto;
+using AddressServiceDAWA.Application.Jobs;
+using AddressServiceDAWA.Domain.Values;
+using AddressServiceDAWA.Infrastructure;
+using Quartz;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,15 +13,32 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddControllers();
+// Application and Infrastructure services
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration);
 
-// Configuration of HttpClient service
-builder.Services.AddHttpClient<IAddressServiceProxy, DawaProxy>(client =>
+// Add the required Quartz.NET services
+// https://www.quartz-scheduler.net/documentation/quartz-3.x/packages/hosted-services-integration.html#installation
+builder.Services.AddQuartz(q =>
 {
-    client.BaseAddress = new Uri("https://api.dataforsyningen.dk/"); // URI in appsettings
-    client.DefaultRequestHeaders.Add("Accept", "application/json");
-    client.DefaultRequestHeaders.Add("User-agent", "DAWA Address Validation");
+    var jobKey = new JobKey("ValidatePendingAddressesJob");
+    q.AddJob<ValidatePendingAddressesJob>(jobKey);
+    q.AddTrigger(options =>
+    {
+        options.ForJob(jobKey)
+            .WithIdentity("ValidatePendingAddressesJob-trigger")
+            .WithCronSchedule("0 0/1 * 1/1 * ? *") // every minute
+            .WithDescription("Validate pending addresses job");
+    });
 });
+
+// Quartz.Extensions.Hosting hosting
+builder.Services.AddQuartzHostedService(options =>
+{
+    // when shutting down we want jobs to complete gracefully
+    options.WaitForJobsToComplete = true;
+});
+
 
 var app = builder.Build();
 
@@ -29,8 +51,69 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseRouting(); // Add routing middleware
-app.MapControllers(); // Map the controllers to the app
+
+app.MapGet("/ping", () => { return Results.Ok("Ping reply"); });
 
 
-app.Run(); 
+app.MapPost("/Address", (CreateAddressRequestDto addressRequest, IAddressCommand addressCommand) =>
+{
+    var address = addressCommand.CreateAddress(new CreateAddressCommandDto(addressRequest.DawaCorrelationId, addressRequest.StreetName, addressRequest.Building, addressRequest.ZipCode, addressRequest.City));
+    var response = new CreateAddressResponseDto(address.DawaCorrelationId, address.DawaAddress.DawaId, MapValidationState(address.DawaAddress.ValidationState));
+    return Results.Ok(response);
+})
+    .WithOpenApi(config => new(config)
+    {
+        Summary = "Create a new address if DAWA validation is succefull",
+        Description =
+            "Create a new address in the system. Before the creation of the address the address is validated with a call to DAWA."
+    })
+    .Accepts<CreateAddressRequestDto>("application/json");
+
+
+
+app.MapGet("/Address", (string dawaId) =>
+{
+    var response = new GetAddressResponseDto("StreetName", "Building", "ZipCode", "City", true, dawaId);
+    return Results.Ok(response);
+})
+    .WithOpenApi(config => new(config)
+    {
+        Summary = "Create a new address if DAWA validation is succefull",
+        Description =
+            "Create a new address in the system. Before the creation of the address the address is validated with a call to DAWA."
+    })
+    .Accepts<CreateAddressRequestDto>("application/json");
+
+
+app.Run();
+
+AddressValidationStateDto MapValidationState(AddressValidationState validationState)
+{
+    switch (validationState)
+    {
+        case AddressValidationState.Pending:
+            return AddressValidationStateDto.Pending;
+        case AddressValidationState.Valid:
+            return AddressValidationStateDto.Valid;
+        case AddressValidationState.Uncertain:
+            return AddressValidationStateDto.Uncertain;
+        case AddressValidationState.Invalid:
+            return AddressValidationStateDto.Invalid;
+        default:
+            throw new ArgumentOutOfRangeException(nameof(validationState), validationState, null);
+    }
+}
+
+public record CreateAddressRequestDto(Guid DawaCorrelationId, string StreetName, string Building, string ZipCode, string City);
+
+public record CreateAddressResponseDto(Guid DawaCorrelationId, Guid DawaId, AddressValidationStateDto ValidationState);
+
+public record GetAddressResponseDto(string StreetName, string Building, string ZipCode, string City, bool IsValid, string DawaId);
+
+public enum AddressValidationStateDto
+{
+    Pending,
+    Valid,
+    Uncertain,
+    Invalid
+}
