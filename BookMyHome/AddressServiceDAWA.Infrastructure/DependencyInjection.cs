@@ -37,14 +37,14 @@ public static class DependencyInjection
         // Database
         // https://github.com/dotnet/SqlClient/issues/2239
         // https://learn.microsoft.com/en-us/ef/core/managing-schemas/migrations/projects?tabs=dotnet-core-cli
-        // Add-Migration InitialMigration -Context AddressContext -Project AddressManager.DatabaseMigration
-        // Update-Database -Context AddressContext -Project AddressManager.DatabaseMigration
+        // Add-Migration InitialMigration -Context AddressContext -Project AddressServiceDAWA.DatabaseMigration
+        // Update-Database -Context AddressContext -Project AddressServiceDAWA.DatabaseMigration
         services.AddDbContext<AddressContext>(options =>
             options.UseSqlServer(
                 configuration.GetConnectionString
                     ("AddressDbConnection"),
                 x =>
-                    x.MigrationsAssembly("AddressManager.DatabaseMigration")));
+                    x.MigrationsAssembly("AddressServiceDAWA.DatabaseMigration")));
 
         return services;
     }

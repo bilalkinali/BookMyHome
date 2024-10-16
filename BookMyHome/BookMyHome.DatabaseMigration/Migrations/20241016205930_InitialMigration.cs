@@ -12,6 +12,19 @@ namespace BookMyHome.DatabaseMigration.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
+                name: "Guests",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Guests", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Hosts",
                 columns: table => new
                 {
@@ -30,8 +43,14 @@ namespace BookMyHome.DatabaseMigration.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Price = table.Column<double>(type: "float", nullable: false),
                     HostId = table.Column<int>(type: "int", nullable: false),
+                    Address_Building = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address_City = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address_DawaCorrelationId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Address_DawaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Address_Street = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Address_ValidationState = table.Column<int>(type: "int", nullable: false),
+                    Address_ZipCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
@@ -53,7 +72,10 @@ namespace BookMyHome.DatabaseMigration.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StartDate = table.Column<DateOnly>(type: "date", nullable: false),
                     EndDate = table.Column<DateOnly>(type: "date", nullable: false),
+                    GuestId = table.Column<int>(type: "int", nullable: false),
                     AccommodationId = table.Column<int>(type: "int", nullable: true),
+                    Review_Comment = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Review_Rating = table.Column<double>(type: "float", nullable: false),
                     RowVersion = table.Column<byte[]>(type: "rowversion", rowVersion: true, nullable: false)
                 },
                 constraints: table =>
@@ -64,6 +86,12 @@ namespace BookMyHome.DatabaseMigration.Migrations
                         column: x => x.AccommodationId,
                         principalTable: "Accommodations",
                         principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_Bookings_Guests_GuestId",
+                        column: x => x.GuestId,
+                        principalTable: "Guests",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -75,6 +103,11 @@ namespace BookMyHome.DatabaseMigration.Migrations
                 name: "IX_Bookings_AccommodationId",
                 table: "Bookings",
                 column: "AccommodationId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Bookings_GuestId",
+                table: "Bookings",
+                column: "GuestId");
         }
 
         /// <inheritdoc />
@@ -85,6 +118,9 @@ namespace BookMyHome.DatabaseMigration.Migrations
 
             migrationBuilder.DropTable(
                 name: "Accommodations");
+
+            migrationBuilder.DropTable(
+                name: "Guests");
 
             migrationBuilder.DropTable(
                 name: "Hosts");

@@ -67,4 +67,7 @@ app.MapPost("/guest", (CreateGuestDto guest, IGuestCommand command) => command.C
 //app.MapGet("/host/{id}/accommodation/review", (int id, IHostQuery query) => query.GetReviews(id));
 app.MapPost("/accommodation/review", (CreateReviewDto createReviewDto, IAccommodationCommand command) => command.AddReview(createReviewDto));
 
+app.MapPost("/AddressHandler",
+    (AddressValidatedEventDto request, IAccommodationCommand command) => command.HandleAddressUpdate(request));
+
 app.Run();
